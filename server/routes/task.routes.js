@@ -32,7 +32,17 @@ router.post("/addTask", (req, res, next) => {
     creatorId: req.user
   })
     .then(task => {
-      res.status(200).json({'Task': 'task added successfully'});
+      User.findByIdAndUpdate(req.user._id, {
+        $push: {
+          tasksId: task._id
+        }
+      }, {
+        new: true
+      })
+      .populate("tasksId")
+      .then(userUpdated => {
+        res.status(200).json({'Task': 'task added successfully', tasks: userUpdated.tasksId});
+      })
   })
   .catch(err => {
       res.status(400).send('Failed adding new task!');

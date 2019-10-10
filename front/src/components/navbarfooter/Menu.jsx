@@ -13,7 +13,7 @@ export default class Menu extends Component {
                 <Link to="/news">News</Link>
               </li>
               <li>
-                <Link to="/tasks">Tasks</Link>
+                <Link to="/task-manager">Tasks</Link>
               </li>
               <li>
                 <Link to="/stats">Stats</Link>

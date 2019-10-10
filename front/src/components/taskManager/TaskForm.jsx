@@ -23,10 +23,7 @@ export default class TaskForm extends Component {
             time: "",
             frequency: ""
         });
-        //aquí elevamos el nuevo usuario una vez creado a App usando getUser via props
-        //por tanto, informamos a App de que el nuevo usuario ha sido creado, provocando un re-render
-        //y mostrando la parte de contenidos. Mira la función getUser de App para más info (date cuenta de que establece el state de App)
-        this.props.getUser(response.user)
+        this.props.tasks(response.tasks)
     })
     .catch(error => {
       this.setState({
