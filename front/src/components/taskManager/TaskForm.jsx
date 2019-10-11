@@ -43,7 +43,7 @@ export default class TaskForm extends Component {
 
   render() {
     return (
-      <form onSubmit={this.handleFormSubmit}>
+      <form className="task-form" onSubmit={this.handleFormSubmit}>
         <fieldset>
           <label>Name: </label>
           <input
