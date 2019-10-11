@@ -31,8 +31,9 @@ export default class View extends React.Component {
       }
   }
 
-  _handleStopClick(event) {        
+  _handleStopClick(event) {      
       if (this.state.running) {
+          let clonedState = [...this.state];
           clearInterval(this.interval);
           this.setState({running: false})
       }

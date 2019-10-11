@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import Moment from 'react-moment';
 import 'moment-timezone';
+// import 'materialize-css';
+// import 'react-materialize';
 
 import "./stylesheets/_style.scss";
-import "materialize-css/dist/css/materialize.min.css";
 
 import { Switch, Route, Redirect } from "react-router-dom";
 
