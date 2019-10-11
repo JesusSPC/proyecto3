@@ -15,6 +15,8 @@ export default class TaskForm extends Component {
     const time = this.state.time;
     const frequency = this.state.frequency;
 
+    if(name && bio && time){
+
     this.service.addTask(name, bio, time, frequency)
     .then( response => {
         this.setState({
@@ -34,6 +36,7 @@ export default class TaskForm extends Component {
         error: true
       });
     })
+  }
   }
 
   handleChange = (event) => {  
@@ -75,16 +78,16 @@ export default class TaskForm extends Component {
           />
         </fieldset>
 
-        {/* <fieldset>
+        <fieldset>
           <label>Frequency: </label>
           <select onChange={e => this.handleChange(e)}>
             <option name="frequency" value={this.state.frequency}>Day</option>
             <option name="frequency" value={this.state.frequency}>Week</option>
             <option name="frecuency" value={this.state.frequency}>Month</option>
           </select>
-        </fieldset> */}
+        </fieldset>
 
-        <input type="submit" value="Sign up" />
+        <input type="submit" value="New Project" />
       </form>
     );
   }

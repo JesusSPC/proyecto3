@@ -87,7 +87,7 @@ export default class View extends React.Component {
       return (
           <div className="app">
               <header className="header">
-                  <div className="title">Chronometer-{this.props.ver}</div>
+                  <div className="title">{this.props.ver}</div>
               </header>    
               <main className="main">                    
                   <div className="display">
@@ -95,7 +95,7 @@ export default class View extends React.Component {
                       <div className="segments">
                           <span className="mins">{this.zeroPad(this.state.minutes)}:</span> 
                           <span className="secs">{this.zeroPad(this.state.seconds)} </span> 
-                          <span className="millis">.0{this.state.millis}</span>
+                          {/* <span className="millis">.0{this.state.millis}</span> */}
                       </div>
                   </div>
                   

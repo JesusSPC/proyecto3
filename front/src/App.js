@@ -3,6 +3,8 @@ import Moment from 'react-moment';
 import 'moment-timezone';
 
 import "./stylesheets/_style.scss";
+import "materialize-css/dist/css/materialize.min.css";
+
 import { Switch, Route, Redirect } from "react-router-dom";
 
 import Navbar from "./components/navbar/Navbar.jsx";

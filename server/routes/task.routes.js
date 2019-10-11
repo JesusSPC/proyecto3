@@ -48,7 +48,11 @@ router.post("/addTask", (req, res, next) => {
         req.user._id,
         {
           $push: {
-            tasksId: task._id
+            tasksId: 
+            { 
+              $each: [task._id],
+              $position: 0
+            }
           }
         },
         {
