@@ -14,11 +14,22 @@ export default class TaskEditor extends Component {
   componentDidMount(){
     this.service.all()
     .then(allTasks => {
-      console.log(allTasks)
       this.setState({
         ...this.state,
         tasks: allTasks.foundUser.tasksId
       
+      })
+    })
+  }
+
+  deleteTask(id) {
+    this.service.delete(id)
+    .then(tasksUpdated => {
+      let tasksStateCopy = [...this.state.tasks]
+      tasksStateCopy = tasksUpdated.tasks
+      this.setState({
+        ...this.state,
+        tasks: tasksStateCopy
       })
     })
   }
@@ -35,11 +46,13 @@ export default class TaskEditor extends Component {
       <div>
         <TaskForm tasks={(tasks) => this.setTasks(tasks)}></TaskForm>
          {this.state.tasks.map((task, idx) => {
-          return <div>
-                key={idx}
+          return <div key={idx}>
+                
                 <h3>{task.name}</h3>
                  <p>{task.bio}</p>
-                 <button onClick={() => this.service.delete(task._id)}></button>
+                 <p>{task.time}</p>
+                 <p>{task.timeLapsed}</p>
+                 <button onClick={() => this.deleteTask(task._id)}>Delete</button>
                  </div>
         })}
       </div>

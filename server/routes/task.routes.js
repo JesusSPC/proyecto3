@@ -14,14 +14,26 @@ router.get("/all", (req, res, next) => {
 
 router.delete("/:id", (req, res, next) => {
   Task.findByIdAndDelete(req.params.id)
-    .then(task => {
-      res.status(200).json({'Task': 'task deleted!'});
+    .then(taskDeleted => {
+      User.findByIdAndUpdate(req.user._id, { $pull: {tasksId: req.params.id}}, {new: true})
+        .populate("tasksId")
+        .then(userUpdated => {
+          console.log(userUpdated)
+          res
+            .status(200)
+            .json({
+              Task: "task deleted successfully",
+              tasks: userUpdated.tasksId
+            });
+        });
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      res.status(400).send("Failed deleting task!");
+    });
 });
 
 router.post("/addTask", (req, res, next) => {
-  const { name, bio, time, frequency } = req.body
+  const { name, bio, time, frequency } = req.body;
 
   Task.create({
     name,
@@ -32,37 +44,43 @@ router.post("/addTask", (req, res, next) => {
     creatorId: req.user
   })
     .then(task => {
-      User.findByIdAndUpdate(req.user._id, {
-        $push: {
-          tasksId: task._id
+      User.findByIdAndUpdate(
+        req.user._id,
+        {
+          $push: {
+            tasksId: task._id
+          }
+        },
+        {
+          new: true
         }
-      }, {
-        new: true
-      })
-      .populate("tasksId")
-      .then(userUpdated => {
-        res.status(200).json({'Task': 'task added successfully', tasks: userUpdated.tasksId});
-      })
-  })
-  .catch(err => {
-      res.status(400).send('Failed adding new task!');
-  });
+      )
+        .populate("tasksId")
+        .then(userUpdated => {
+          res
+            .status(200)
+            .json({
+              Task: "task added successfully",
+              tasks: userUpdated.tasksId
+            });
+        });
+    })
+    .catch(err => {
+      res.status(400).send("Failed adding new task!");
+    });
 });
 
 router.post("/:id/editTask", (req, res, next) => {
   const id = req.params;
-  const {name, bio, time, frequency } = req.body   
- 
-  Task.findByIdAndUpdate(id, {name, bio, time, frequency }, { new: true })
+  const { name, bio, time, frequency } = req.body;
+
+  Task.findByIdAndUpdate(id, { name, bio, time, frequency }, { new: true })
     .then(editedTask => {
-      res.status(200).json({'Task': 'task edited successfully'});
+      res.status(200).json({ Task: "task edited successfully" });
     })
     .catch(error => {
       console.log(error);
     });
-    // .catch(error => {
-    //   res.status(400).send('Failed editing task!');
-    // });
 });
 
 module.exports = router;
