@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import TaskService from "./TaskService.jsx"
 import TaskForm from "./TaskForm.jsx";
 import Timer from "../timer/Timer.jsx";
+import Timer2 from "../timer/Timer2.jsx";
 
 export default class TaskEditor extends Component {
   constructor(props){
@@ -52,8 +53,9 @@ export default class TaskEditor extends Component {
                  <p>{task.bio}</p>
                  <p>{task.time}</p>
                  <p>{task.timeLapsed}</p>
-                 <Timer></Timer>
+                 <Timer2></Timer2>
                  <p>{Date.now()}</p>
+                 <button>Timer</button>
                  <button onClick={() => this.deleteTask(task._id)}>Delete</button>
                  </div>
         })}

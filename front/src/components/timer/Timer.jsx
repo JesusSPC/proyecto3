@@ -1,12 +1,14 @@
 import * as React from 'react';
 import ReactStopwatch from 'react-stopwatch';
+import Moment from 'react-moment';
+import 'moment-timezone';
  
 const Stopwatch = () => (
   <ReactStopwatch
     seconds={0}
     minutes={0}
     hours={0}
-    limit="00:00:10"
+    // limit="00:00:10"
     onChange={({ hours, minutes, seconds }) => {
       // do something
     }}
