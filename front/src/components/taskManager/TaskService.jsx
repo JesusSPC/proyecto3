@@ -23,6 +23,11 @@ class TaskService {
     return this.service.post('/addTask', {name, bio, time, frequency})
     .then(response => response.data)
   }
+
+  updateTime = (id, minutes, seconds, millis) => {
+    return this.service.post(`/${id}/updateTime`, {minutes, seconds, millis})
+    .then(response => response.data)
+  }
 }
 
 export default TaskService;

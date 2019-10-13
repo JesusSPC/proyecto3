@@ -75,7 +75,7 @@ router.post("/addTask", (req, res, next) => {
 });
 
 router.post("/:id/editTask", (req, res, next) => {
-  const id = req.params;
+  const id = req.params.id;
   const { name, bio, time, frequency } = req.body;
 
   Task.findByIdAndUpdate(id, { name, bio, time, frequency }, { new: true })
@@ -85,6 +85,23 @@ router.post("/:id/editTask", (req, res, next) => {
     .catch(error => {
       console.log(error);
     });
+});
+
+router.post("/:id/updateTime", (req, res, next) => {
+  const id = req.params.id;
+  const { minutes, seconds, millis } = req.body;
+  console.log( req.body )
+  console.log(id)
+
+  Task.findByIdAndUpdate(id, { minutes, seconds, millis }, {new: true})
+  .then(updatedTime => {
+    console.log(updatedTime, "HOLAAAAAAAAAAAa")
+    res.status(200).json({ Task: "task timer updated successfully" });
+  })
+  .catch(error => {
+    console.log("ERROOOOOOOOOOOR")
+    console.log(error);
+  });
 });
 
 module.exports = router;
