@@ -1,10 +1,13 @@
 import React, { Component } from "react";
+import TaskService from "../taskManager/TaskService.jsx";
+
 import Moment from "react-moment";
 import "moment-timezone";
 
 export default class Timer extends Component {
   constructor(props) {
     super(props);
+    this.service = new TaskService();
 
     //: getInitialState() method
     this.state = {
@@ -30,10 +33,9 @@ export default class Timer extends Component {
 
   _handleStopClick(event) {
     if (this.state.running) {
-
       let clonedState = { ...this.state };
       this.props.saveTimer(clonedState);
-      
+
       clearInterval(this.interval);
       this.setState({ running: false });
     }
@@ -75,9 +77,27 @@ export default class Timer extends Component {
     });
   }
 
+  // getTime(minutes, seconds, millis) {
+  //   this.setState({
+  //     ...this.state,
+  //     minutes: minutes,
+  //     seconds: seconds,
+  //     millis: millis
+  //   });
+  // }
+
   componentDidMount() {
-    //TODO
-  }
+    this.service.retrieveTime(this.props.task._id)
+    .then(retrievedTime => {
+      let { minutes, seconds, millis } = retrievedTime.taskFound;
+      this.setState({
+      ...this.state,
+      minutes: minutes,
+      seconds: seconds,
+      millis: millis
+          });
+  })
+}
 
   componentWillUnMount() {
     //TODO
@@ -115,7 +135,7 @@ export default class Timer extends Component {
               Stop
             </button>
 
-            <button
+            {/* <button
               className={
                 "btn reset " +
                 (this.state.seconds > 0 && false == run ? "" : "disabled")
@@ -123,7 +143,7 @@ export default class Timer extends Component {
               onClick={() => this._handleResetClick()}
             >
               Reset
-            </button>
+            </button> */}
           </div>
         </main>
       </div>

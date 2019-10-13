@@ -18,17 +18,30 @@ export default class SingleTask extends Component {
   }
 
   saveTimer(time) {
-    let id = this.props.task._id
-    let {minutes, seconds, millis} = time
-    this.service.updateTime(id, minutes, seconds, millis)
-    .then(timeUpdated => {
+    let id = this.props.task._id;
+    let { minutes, seconds, millis } = time;
+    this.service.updateTime(id, minutes, seconds, millis).then(timeUpdated => {
       this.setState({
         ...this.state,
         minutes: minutes,
         seconds: seconds,
         millis: millis
-      })
-    })
+      });
+    });
+  }
+
+  componentDidMount() {
+    // this.service.retrieveTime(this.props.task._id)
+    // .then(retrievedTime => {
+    //   let { minutes, seconds, millis } = retrievedTime.taskFound;
+      // getTime(minutes,seconds,millis)
+      // this.setState({
+      //   ...this.state,
+      //   minutes: minutes,
+      //   seconds: seconds,
+      //   millis: millis
+      // });
+    // });
   }
 
   render() {
@@ -48,6 +61,7 @@ export default class SingleTask extends Component {
             <Timer
               saveTimer={time => this.saveTimer(time)}
               time={this.state}
+              task={this.props.task}
             ></Timer>
             <p>
               Created:{" "}
