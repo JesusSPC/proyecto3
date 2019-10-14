@@ -5,10 +5,10 @@ const bcrypt = require("bcrypt");
 const User = require("../models/User");
 const Task = require("../models/Task");
 const bcryptSalt = 10;
-const { DBURL } = process.env;
-console.log(DBURL);
+const { MONGO_URL } = process.env;
+console.log(MONGO_URL);
 mongoose
-  .connect(`${DBURL}`, { useNewUrlParser: true })
+  .connect(`${MONGO_URL}`, { useNewUrlParser: true })
   .then(x => {
     console.log(
       `Connected to Mongo! Database name: "${x.connections[0].name}"`

@@ -4,7 +4,7 @@ Don't forget to:
 2) In the server section add a file called `.env` with these environment variables:
 
 ~~~~
-DBURL=mongodb://localhost:27017/reactAuthentication  
+MONGO_URL=mongodb://localhost:27017/reactAuthentication  
 PORT=3010
 ~~~~
 
