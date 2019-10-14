@@ -1,21 +1,19 @@
 import React, { Component } from "react";
 import Moment from 'react-moment';
 import 'moment-timezone';
-// import 'materialize-css';
-// import 'react-materialize';
 
 import "./stylesheets/_style.scss";
 
 import { Switch, Route, Redirect } from "react-router-dom";
 
-import Navbar from "./components/navbar/Navbar.jsx";
-import Signup from "./components/auth/Signup.jsx";
-import Login from "./components/auth/Login.jsx";
-import AuthService from "./components/auth/AuthService.jsx";
-import TaskManager from "./components/taskManager/TaskManager.jsx";
-import TaskStats from "./components/taskManager/TaskStats.jsx";
-import TaskNews from "./components/taskManager/TaskNews.jsx";
-import Menu from "./components/navbarfooter/Menu.jsx";
+import Navbar from "./components/navbar/Navbar.js";
+import Signup from "./components/auth/Signup.js";
+import Login from "./components/auth/Login.js";
+import AuthService from "./components/auth/AuthService.js";
+import TaskManager from "./components/taskManager/TaskManager.js";
+import TaskStats from "./components/taskManager/TaskStats.js";
+import TaskNews from "./components/taskManager/TaskNews.js";
+import Menu from "./components/navbarfooter/Menu.js";
 
 class App extends Component {
   constructor(props) {  

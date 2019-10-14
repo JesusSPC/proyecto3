@@ -1,6 +1,6 @@
 // auth/Signup.js
 import React, { Component } from 'react';
-import AuthService from './AuthService.jsx'
+import AuthService from './AuthService.js'
 
 //signup y login son iguales a excepción de el html renderizado y el endpoint de nuestra API rest a la que llamamos
 //uno llama a /signup y el otro a /login usando nuestro AuthService

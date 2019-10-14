@@ -7,7 +7,7 @@ export default class Menu extends Component {
     return (
       <div>
         <div>
-          <nav className="menu-footer">
+          <nav className="menu-footer blue">
             <ul>
               <li>
                 <Link to="/news">News</Link>

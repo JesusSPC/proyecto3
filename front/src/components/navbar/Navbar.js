@@ -2,7 +2,7 @@
 
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import AuthService from "../auth/AuthService.jsx";
+import AuthService from "../auth/AuthService.js";
 import "./Navbar.css"
 
 class Navbar extends Component {
@@ -23,7 +23,7 @@ class Navbar extends Component {
   render() {
     if (this.state.loggedInUser) {
       return (
-        <nav className="nav-style">
+        <nav className="navbar nav-style blue">
           <ul>
             <li>
               <a onClick={this.handleLogout}>Logout</a>
@@ -38,7 +38,7 @@ class Navbar extends Component {
     } else {
       return (
         <div>
-          <nav className="nav-style">
+          <nav className="navbar nav-style blue">
             <ul>
               <li>
                 <Link to="/signup">Signup</Link>

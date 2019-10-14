@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import Moment from "react-moment";
+import { Modal, Button } from "react-materialize";
 
-import TaskService from "./TaskService.jsx";
-import TaskForm from "./TaskForm.jsx";
-import Task from "./SingleTask.jsx";
+import TaskService from "./TaskService.js";
+import TaskForm from "./TaskForm.js";
+import Task from "./SingleTask.js";
 
 export default class TaskManager extends Component {
   constructor(props) {
@@ -44,11 +45,17 @@ export default class TaskManager extends Component {
   render() {
     return (
       <div>
+        <a href="#newTask" className="btn modal-trigger">+New Project</a>
+        <Modal header="What you wanna do?" id="newTask">
         <TaskForm tasks={tasks => this.setTasks(tasks)}></TaskForm>
+        </Modal>
         {this.state.tasks.map((task, idx) => {
           return (
             <div className="task-box" key={idx}>
-              <Task deleteTask={() => this.deleteTask(task._id)} task={task}></Task>
+              <Task
+                deleteTask={() => this.deleteTask(task._id)}
+                task={task}
+              ></Task>
             </div>
           );
         })}

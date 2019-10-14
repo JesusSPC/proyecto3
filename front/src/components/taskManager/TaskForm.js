@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import TaskService from "./TaskService.jsx";
+import TaskService from "./TaskService.js";
 
 export default class TaskForm extends Component {
   constructor(props) {

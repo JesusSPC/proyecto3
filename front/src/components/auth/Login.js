@@ -1,7 +1,7 @@
 // auth/Signup.js
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import AuthService from './AuthService.jsx'
+import AuthService from './AuthService.js'
 
 class Login extends Component {
   constructor(props) {

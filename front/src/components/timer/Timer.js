@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import TaskService from "../taskManager/TaskService.jsx";
+import TaskService from "../taskManager/TaskService.js";
 
 import Moment from "react-moment";
 import "moment-timezone";
@@ -16,10 +16,6 @@ export default class Timer extends Component {
       millis: 0,
       running: false
     };
-
-    //   this._handleStartClick = this._handleStartClick.bind(this);
-    //   this._handleStopClick = this._handleStopClick.bind(this);
-    //   this._handleResetClick = this._handleResetClick.bind(this);
   }
 
   _handleStartClick(event) {
@@ -37,7 +33,12 @@ export default class Timer extends Component {
       this.props.saveTimer(clonedState);
 
       clearInterval(this.interval);
-      this.setState({ running: false });
+      this.setState({ 
+      ...this.state,
+      minutes: 0,
+      seconds: 0,
+      millis: 0,  
+      running: false });
     }
   }
 
@@ -77,18 +78,10 @@ export default class Timer extends Component {
     });
   }
 
-  // getTime(minutes, seconds, millis) {
-  //   this.setState({
-  //     ...this.state,
-  //     minutes: minutes,
-  //     seconds: seconds,
-  //     millis: millis
-  //   });
-  // }
-
   componentDidMount() {
     this.service.retrieveTime(this.props.task._id)
     .then(retrievedTime => {
+      console.log(retrievedTime)
       let { minutes, seconds, millis } = retrievedTime.taskFound;
       this.setState({
       ...this.state,
