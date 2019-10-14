@@ -90,16 +90,18 @@ router.post("/:id/editTask", (req, res, next) => {
 router.post("/:id/updateTime", (req, res, next) => {
   const id = req.params.id;
   let { minutes, seconds, millis, timeLapsed } = req.body;
+  console.log(req.body)
   Task.findById(id)
   .then(foundTask => {
-    minutes += foundTask.minutes;
-    seconds += foundTask.seconds;
-    millis += foundTask.millis;
+    minutes = minutes + foundTask.minutes;
+    seconds = seconds + foundTask.seconds;
+    millis = millis + foundTask.millis;
     seconds = seconds >= 60? (seconds - 60) && (minutes += 1) : seconds;
-    millis = millis >= 10? millis - 10 && seconds + 1 : millis; 
+    millis = millis >= 10? (millis - 10) && (seconds += 1) : millis; 
+
     Task.findByIdAndUpdate(id, { minutes, seconds, millis, timeLapsed }, { new: true })
     .then(updatedTime => {
-      res.status(200).json({ Task: "task timer updated successfully" });
+      res.status(200).json({ Task: "task timer updated successfully", updatedTime });
     })
     .catch(error => {
       console.log(error);

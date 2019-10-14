@@ -22,12 +22,20 @@ export default class SingleTask extends Component {
   }
 
   saveTimer(time) {
+    console.log(time)
     let id = this.props.task._id;
     let { minutes, seconds, millis } = time;
     let timeLapsed = `${minutes}:${seconds}`;
+    console.log(minutes,seconds, timeLapsed)
+
     this.service
       .updateTime(id, minutes, seconds, millis, timeLapsed)
-      .then(timeUpdated => {
+
+      .then(task => {
+        console.log(task)
+        let minutes = task.updatedTime.minutes
+        let seconds = task.updatedTime.seconds
+        let timeLapsed = `${minutes}:${seconds}`;
         let timeSplited = timeLapsed.split(":");
         for (let i = 0; i < timeSplited.length; i++) {
           if (timeSplited[i].length === 1) {
