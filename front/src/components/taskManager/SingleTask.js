@@ -90,7 +90,7 @@ export default class SingleTask extends Component {
           <div>
             <p>{this.props.task.bio}</p>
             <p>{this.props.task.time}:00</p>
-            <p>Currently: {this.state.timeSpent}</p>
+            <p>Currently: {this.state.timeSpent === "00" ? "00:00" : this.state.timeSpent}</p>
           </div>
           <div>
             <Timer

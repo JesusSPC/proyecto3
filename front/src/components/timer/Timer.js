@@ -32,10 +32,6 @@ export default class Timer extends Component {
       let clonedState = { ...this.state };
       this.props.saveTimer(clonedState);
 
-      // this.service.retrieveTime(this.props.task._id)
-      // .then(retrievedTime => {
-      // })
-
       clearInterval(this.interval);
       this.setState({ 
       ...this.state,

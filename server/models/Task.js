@@ -7,6 +7,7 @@ const taskSchema = new Schema({
   time: Number,
   timeLapsed: {type: String, default: '0'},
   frequency: {enum: ["Day", "Week", "Month"]},
+  hours: { type: Number, default: 0 },
   minutes: { type: Number, default: 0 },
   seconds: { type: Number, default: 0 },
   millis: { type: Number, default: 0 },

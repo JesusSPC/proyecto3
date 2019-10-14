@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Moment from 'react-moment';
 import 'moment-timezone';
+import { Modal } from "react-materialize";
 
 import "./stylesheets/_style.scss";
 
@@ -76,15 +77,29 @@ class App extends Component {
         <React.Fragment>
           <Redirect to="/login" />
 
-          <div className="App">
+          {/* <div className="App">
             <header className="App-header">
               <Navbar userInSession={this.state.loggedInUser} logout={this.logout} />
-              <Switch>
-                <Route exact path="/signup" render={() => <Signup getUser={this.getUser} />} />
+              <Switch>     
+                <Route exact path="/signup" render={() => 
+                <Signup getUser={this.getUser} />} />
                 <Route exact path="/login" render={() => <Login getUser={this.getUser} />} />
               </Switch>
             </header>
-          </div>
+          </div> */}
+
+            <div className="App">
+            <header className="App-header">
+            <a href="#signup" className="btn modal-trigger">Sign up</a>
+              <Modal header="Get ready to enjoy!" id="signup">
+                <Signup getUser={this.getUser} />
+              </Modal> 
+            <a href="#login" className="btn modal-trigger">Sign in</a>
+              <Modal header="Sign in" id="login">
+                <Login getUser={this.getUser} />
+              </Modal> 
+            </header>
+              </div>
         </React.Fragment>
       );
     }
