@@ -83,9 +83,9 @@ export default class Timer extends Component {
       let { minutes, seconds, millis } = retrievedTime.taskFound;
       this.setState({
       ...this.state,
-      minutes: minutes,
-      seconds: seconds,
-      millis: millis
+      minutes: 0,
+      seconds: 0,
+      millis: 0
           });
   })
 }
@@ -113,17 +113,17 @@ export default class Timer extends Component {
 
           <div className="actions">
             <button
-              className={"btn start " + (run ? "disabled" : "")}
-              onClick={() => this._handleStartClick()}
-            >
-              Start
-            </button>
-
-            <button
               className={"btn stop " + (false == run ? "disabled" : "")}
               onClick={() => this._handleStopClick()}
             >
-              Stop
+            <i className="material-icons">stop</i>
+            </button>
+
+            <button
+              className={"btn start " + (run ? "disabled" : "")}
+              onClick={() => this._handleStartClick()}
+            >
+            <i className="material-icons">play_arrow</i>
             </button>
 
             {/* <button

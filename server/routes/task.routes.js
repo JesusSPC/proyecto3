@@ -12,6 +12,14 @@ router.get("/all", (req, res, next) => {
     .catch(err => console.log(err));
 });
 
+router.get("/:id", (req,res,next) => {
+  Task.findById(req.params.id)
+    .then(taskFound => {
+      res.json({ taskFound });
+    })
+    .catch(err => console.log(err))
+})
+
 router.delete("/:id", (req, res, next) => {
   Task.findByIdAndDelete(req.params.id)
     .then(taskDeleted => {
@@ -22,7 +30,6 @@ router.delete("/:id", (req, res, next) => {
       )
         .populate("tasksId")
         .then(userUpdated => {
-          console.log(userUpdated);
           res.status(200).json({
             Task: "task deleted successfully",
             tasks: userUpdated.tasksId
@@ -85,7 +92,6 @@ router.post("/:id/editTask", (req, res, next) => {
     User.findById(req.user._id)
       .populate("tasksId")
       .then(user => {
-        console.log(user)
         res;
         res
           .status(200)
@@ -100,13 +106,6 @@ router.post("/:id/editTask", (req, res, next) => {
 router.post("/:id/updateTime", (req, res, next) => {
   const id = req.params.id;
   let { minutes, seconds, millis, timeLapsed } = req.body;
-  console.log(req.body);
-  Task.findById(id).then(foundTask => {
-    minutes = minutes + foundTask.minutes;
-    seconds = seconds + foundTask.seconds;
-    millis = millis + foundTask.millis;
-    seconds = seconds >= 60 ? seconds - 60 && (minutes += 1) : seconds;
-    millis = millis >= 10 ? millis - 10 && (seconds += 1) : millis;
 
     Task.findByIdAndUpdate(
       id,
@@ -122,7 +121,6 @@ router.post("/:id/updateTime", (req, res, next) => {
         console.log(error);
       });
   });
-});
 
 router.get("/:id/retrieveTime", (req, res, next) => {
   const id = req.params.id;

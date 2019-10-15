@@ -14,6 +14,11 @@ class TaskService {
     .then(response => response.data)
   }
 
+  singleTask = (id) => {
+    return this.service.get(`/${id}`)
+    .then(response => response.data)
+  }
+
   delete = (id) => {
     return this.service.delete(`/${id}`)
     .then(response => response.data)

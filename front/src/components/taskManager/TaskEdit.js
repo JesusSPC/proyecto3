@@ -5,8 +5,8 @@ export default class TaskEdit extends Component {
   constructor(props) {
     super(props);
     this.state = { 
-      name: this.props.task.name, 
-      bio: this.props.task.bio, 
+      name: "", 
+      bio: "", 
       time: "", 
       frequency: ""
     };

@@ -35,7 +35,6 @@ export default class TaskManager extends Component {
   }
 
   setTasks(tasks) {
-    console.log("HOLAAAAAA")
     this.setState({
       ...this.state,
       tasks: tasks

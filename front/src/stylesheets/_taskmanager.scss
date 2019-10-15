@@ -5,7 +5,12 @@
 
 .task-box {
   margin-bottom: 20px;
+  font-size: 20px;
   width: 340px;
+}
+
+.task-box .header {
+  height: 20px;;
 }
 
 .task-box h3, .task-box p {
