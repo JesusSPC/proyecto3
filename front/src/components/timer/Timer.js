@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import TaskService from "../taskManager/TaskService.js";
 
-import Moment from "react-moment";
 import "moment-timezone";
 
 export default class Timer extends Component {
@@ -81,7 +80,6 @@ export default class Timer extends Component {
   componentDidMount() {
     this.service.retrieveTime(this.props.task._id)
     .then(retrievedTime => {
-      console.log(retrievedTime)
       let { minutes, seconds, millis } = retrievedTime.taskFound;
       this.setState({
       ...this.state,

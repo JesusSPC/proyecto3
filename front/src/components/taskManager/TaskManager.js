@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import Moment from "react-moment";
-import { Modal, Button } from "react-materialize";
+import { Modal } from "react-materialize";
 
 import TaskService from "./TaskService.js";
 import TaskForm from "./TaskForm.js";
@@ -36,6 +35,7 @@ export default class TaskManager extends Component {
   }
 
   setTasks(tasks) {
+    console.log("HOLAAAAAA")
     this.setState({
       ...this.state,
       tasks: tasks
@@ -53,6 +53,7 @@ export default class TaskManager extends Component {
           return (
             <div className="task-box" key={idx}>
               <Task
+                tasks={tasks => this.setTasks(tasks)}
                 deleteTask={() => this.deleteTask(task._id)}
                 task={task}
               ></Task>

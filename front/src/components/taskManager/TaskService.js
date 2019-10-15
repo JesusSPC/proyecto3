@@ -19,6 +19,11 @@ class TaskService {
     .then(response => response.data)
   }
 
+  edit = (id, name, bio, time, frequency) => {
+    return this.service.post(`/${id}/editTask`, {name, bio, time, frequency})
+    .then(response => response.data)
+  }
+
   addTask = (name, bio, time, frequency) => {
     return this.service.post('/addTask', {name, bio, time, frequency})
     .then(response => response.data)

@@ -1,8 +1,11 @@
 import React, { Component } from "react";
-import { Collapsible, CollapsibleItem, Icon } from "react-materialize";
+import { Collapsible, CollapsibleItem } from "react-materialize";
+import { Modal } from "react-materialize";
+
 import "materialize-css/dist/css/materialize.min.css";
 import M from "materialize-css/dist/js/materialize.min.js";
 
+import TaskEdit from "./TaskEdit.js";
 import TaskService from "./TaskService.js";
 import Timer from "../timer/Timer.js";
 import Moment from "react-moment";
@@ -22,19 +25,19 @@ export default class SingleTask extends Component {
   }
 
   saveTimer(time) {
-    console.log(time)
+    console.log(time);
     let id = this.props.task._id;
     let { minutes, seconds, millis } = time;
     let timeLapsed = `${minutes}:${seconds}`;
-    console.log(minutes,seconds, timeLapsed)
+    console.log(minutes, seconds, timeLapsed);
 
     this.service
       .updateTime(id, minutes, seconds, millis, timeLapsed)
 
       .then(task => {
-        console.log(task)
-        let minutes = task.updatedTime.minutes
-        let seconds = task.updatedTime.seconds
+        console.log(task);
+        let minutes = task.updatedTime.minutes;
+        let seconds = task.updatedTime.seconds;
         let timeLapsed = `${minutes}:${seconds}`;
         let timeSplited = timeLapsed.split(":");
         for (let i = 0; i < timeSplited.length; i++) {
@@ -60,7 +63,6 @@ export default class SingleTask extends Component {
       var instances = M.Collapsible.init(elems, {});
     });
     this.service.retrieveTime(this.props.task._id).then(retrievedTime => {
-      console.log(retrievedTime);
       let { minutes, seconds, millis, timeLapsed } = retrievedTime.taskFound;
       let timeSplited = timeLapsed.split(":");
       for (let i = 0; i < timeSplited.length; i++) {
@@ -85,12 +87,15 @@ export default class SingleTask extends Component {
       <Collapsible>
         <CollapsibleItem
           header={this.props.task.name}
-          icon={<i class="material-icons">access_time</i>}
+          icon={<i className="material-icons">access_time</i>}
         >
           <div>
             <p>{this.props.task.bio}</p>
             <p>{this.props.task.time}:00</p>
-            <p>Currently: {this.state.timeSpent === "00" ? "00:00" : this.state.timeSpent}</p>
+            <p>
+              Currently:{" "}
+              {this.state.timeSpent === "00" ? "00:00" : this.state.timeSpent}
+            </p>
           </div>
           <div>
             <Timer
@@ -102,6 +107,16 @@ export default class SingleTask extends Component {
               Created:{" "}
               <Moment format="YYYY/MM/DD">{this.props.task.created_at}</Moment>
             </p>
+            <a href="#editTask" className="btn modal-trigger">
+              Edit
+            </a>
+
+            <Modal header="Change your project" id="editTask">
+              <TaskEdit task={this.props.task} tasks={tasks => this.props.tasks(tasks)}></TaskEdit>
+            </Modal>
+            {/* <button onClick={() => this.props.editTask(this.props.task._id)}>
+              Edit
+            </button> */}
             <button onClick={() => this.props.deleteTask(this.props.task._id)}>
               Delete
             </button>

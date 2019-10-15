@@ -15,16 +15,18 @@ router.get("/all", (req, res, next) => {
 router.delete("/:id", (req, res, next) => {
   Task.findByIdAndDelete(req.params.id)
     .then(taskDeleted => {
-      User.findByIdAndUpdate(req.user._id, { $pull: {tasksId: req.params.id}}, {new: true})
+      User.findByIdAndUpdate(
+        req.user._id,
+        { $pull: { tasksId: req.params.id } },
+        { new: true }
+      )
         .populate("tasksId")
         .then(userUpdated => {
-          console.log(userUpdated)
-          res
-            .status(200)
-            .json({
-              Task: "task deleted successfully",
-              tasks: userUpdated.tasksId
-            });
+          console.log(userUpdated);
+          res.status(200).json({
+            Task: "task deleted successfully",
+            tasks: userUpdated.tasksId
+          });
         });
     })
     .catch(err => {
@@ -48,8 +50,7 @@ router.post("/addTask", (req, res, next) => {
         req.user._id,
         {
           $push: {
-            tasksId: 
-            { 
+            tasksId: {
               $each: [task._id],
               $position: 0
             }
@@ -61,12 +62,10 @@ router.post("/addTask", (req, res, next) => {
       )
         .populate("tasksId")
         .then(userUpdated => {
-          res
-            .status(200)
-            .json({
-              Task: "task added successfully",
-              tasks: userUpdated.tasksId
-            });
+          res.status(200).json({
+            Task: "task added successfully",
+            tasks: userUpdated.tasksId
+          });
         });
     })
     .catch(err => {
@@ -78,46 +77,62 @@ router.post("/:id/editTask", (req, res, next) => {
   const id = req.params.id;
   const { name, bio, time, frequency } = req.body;
 
-  Task.findByIdAndUpdate(id, { name, bio, time, frequency }, { new: true })
-    .then(editedTask => {
-      res.status(200).json({ Task: "task edited successfully" });
-    })
-    .catch(error => {
-      console.log(error);
-    });
+  Task.findByIdAndUpdate(
+    id,
+    { name, bio, time, frequency },
+    { new: true }
+  ).then(editedTask => {
+    User.findById(req.user._id)
+      .populate("tasksId")
+      .then(user => {
+        console.log(user)
+        res;
+        res
+          .status(200)
+          .json({ Task: "task edited successfully", tasks: user.tasksId });
+      })
+      .catch(error => {
+        res.status(400).send("Failed editing task!");
+      });
+  });
 });
 
 router.post("/:id/updateTime", (req, res, next) => {
   const id = req.params.id;
   let { minutes, seconds, millis, timeLapsed } = req.body;
-  console.log(req.body)
-  Task.findById(id)
-  .then(foundTask => {
+  console.log(req.body);
+  Task.findById(id).then(foundTask => {
     minutes = minutes + foundTask.minutes;
     seconds = seconds + foundTask.seconds;
     millis = millis + foundTask.millis;
-    seconds = seconds >= 60? (seconds - 60) && (minutes += 1) : seconds;
-    millis = millis >= 10? (millis - 10) && (seconds += 1) : millis; 
+    seconds = seconds >= 60 ? seconds - 60 && (minutes += 1) : seconds;
+    millis = millis >= 10 ? millis - 10 && (seconds += 1) : millis;
 
-    Task.findByIdAndUpdate(id, { minutes, seconds, millis, timeLapsed }, { new: true })
-    .then(updatedTime => {
-      res.status(200).json({ Task: "task timer updated successfully", updatedTime });
-    })
-    .catch(error => {
-      console.log(error);
-    });
-  })
+    Task.findByIdAndUpdate(
+      id,
+      { minutes, seconds, millis, timeLapsed },
+      { new: true }
+    )
+      .then(updatedTime => {
+        res
+          .status(200)
+          .json({ Task: "task timer updated successfully", updatedTime });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  });
 });
 
 router.get("/:id/retrieveTime", (req, res, next) => {
   const id = req.params.id;
   Task.findById(id)
-  .then(taskFound => {
-    res.status(200).json({ Task: "task time sent to front", taskFound });
-  })
-  .catch(error => {
-    console.log(error);
-  });
+    .then(taskFound => {
+      res.status(200).json({ Task: "task time sent to front", taskFound });
+    })
+    .catch(error => {
+      console.log(error);
+    });
 });
 
 module.exports = router;

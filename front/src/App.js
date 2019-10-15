@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Moment from 'react-moment';
 import 'moment-timezone';
 import { Modal } from "react-materialize";
 
