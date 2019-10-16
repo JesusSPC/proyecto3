@@ -5,7 +5,7 @@ import M from "materialize-css/dist/js/materialize.min.js";
 export default class TaskForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { name: "", bio: "", time: "", frequency: "" };
+    this.state = { name: "", bio: "", hoursObj: "", minutesObj: "", frequency: "" };
     this.service = new TaskService();
   }
 
@@ -13,18 +13,20 @@ export default class TaskForm extends Component {
     event.preventDefault();
     const name = this.state.name;
     const bio = this.state.bio;
-    const time = this.state.time;
-    const frequency = this.state.frequency;
+    const frequency = this.state.frequency || "Day";
+    const hoursObj = this.state.hoursObj;
+    const minutesObj = this.state.minutesObj;
 
-    if (name && bio && time) {
+    if (name && bio && (hoursObj || minutesObj)) {
       this.service
-        .addTask(name, bio, time, frequency)
+        .addTask(name, bio, frequency, hoursObj, minutesObj)
         .then(response => {
           this.setState({
             name: "",
             bio: "",
-            time: "",
-            frequency: ""
+            frequency: "",
+            hoursObj: "",
+            minutesObj: ""
           });
           this.props.tasks(response.tasks);
         })
@@ -32,8 +34,9 @@ export default class TaskForm extends Component {
           this.setState({
             name: name,
             bio: bio,
-            time: time,
             frequency: frequency,
+            hoursObj: hoursObj,
+            minutesObj: minutesObj,
             error: true
           });
         });
@@ -77,16 +80,25 @@ export default class TaskForm extends Component {
         </fieldset>
 
         <fieldset>
-          <label>Time: </label>
+          <label>Hours: </label>
           <input
             type="number"
-            name="time"
-            value={this.state.time}
+            name="hoursObj"
+            value={this.state.hoursObj}
+            onChange={e => this.handleChange(e)}
+          />
+        </fieldset>
+        <fieldset>
+          <label>Minutes: </label>
+          <input
+            type="number"
+            name="minutesObj"
+            value={this.state.minutesObj}
             onChange={e => this.handleChange(e)}
           />
         </fieldset>
         <label>Select your plan: </label>
-        <select className="browser-default">
+        <select name="frequency" className="browser-default" onChange={e => this.handleChange(e)}>
           <option value="" disabled selected>
             Choose your option
           </option>
@@ -97,7 +109,6 @@ export default class TaskForm extends Component {
 
         <input type="submit" value="New Project" />
       </form>
-
     );
   }
 }

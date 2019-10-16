@@ -34,10 +34,10 @@ export default class TaskManager extends Component {
     });
   }
 
-  sortByHours(e) {
+  sortByTime(e) {
     e.preventDefault();
     let clonedTasks = [...this.state.tasks]
-    let sortedTasks = clonedTasks.sort((a, b) => a.hours < b.hours ? 1 : -1)
+    let sortedTasks = clonedTasks.sort((a, b) => a.time < b.time ? 1 : -1)
     this.setTasks(sortedTasks);
   }
 
@@ -65,9 +65,8 @@ export default class TaskManager extends Component {
         </Modal>
         </div>
         <div>
-        <Button onClick={(e) => this.sortByName(e)}>By title</Button>
-        <Button onClick={(e) => this.sortByHours(e)}>By hours</Button>
-        <Button onClick={(e) => this.sortByHours(e)}>By time</Button>
+        <Button onClick={(e) => this.sortByName(e)}>By name</Button>
+        <Button onClick={(e) => this.sortByTime(e)}>By time</Button>
         </div>
         {this.state.tasks.map((task, idx) => {
           return (

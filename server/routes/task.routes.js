@@ -42,17 +42,19 @@ router.delete("/:id", (req, res, next) => {
 });
 
 router.post("/addTask", (req, res, next) => {
-  const { name, bio, time, frequency } = req.body;
+  const { name, bio, frequency, hoursObj, minutesObj } = req.body;
 
   Task.create({
     name,
     bio,
-    time,
     timeLapsed: 0,
     frequency,
+    hoursObj,
+    minutesObj,
     creatorId: req.user
   })
     .then(task => {
+      console.log(task)
       User.findByIdAndUpdate(
         req.user._id,
         {
@@ -105,11 +107,11 @@ router.post("/:id/editTask", (req, res, next) => {
 
 router.post("/:id/updateTime", (req, res, next) => {
   const id = req.params.id;
-  let { hours, minutes, seconds, millis, timeLapsed, finished } = req.body;
+  let { hours, minutes, seconds, millis, timeLapsed, finished, overTime } = req.body;
 
     Task.findByIdAndUpdate(
       id,
-      { hours, minutes, seconds, millis, timeLapsed, finished },
+      { hours, minutes, seconds, millis, timeLapsed, finished, overTime },
       { new: true }
     )
       .then(updatedTime => {

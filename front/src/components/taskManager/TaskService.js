@@ -29,13 +29,13 @@ class TaskService {
     .then(response => response.data)
   }
 
-  addTask = (name, bio, time, frequency) => {
-    return this.service.post('/addTask', {name, bio, time, frequency})
+  addTask = (name, bio, frequency, hoursObj, minutesObj) => {
+    return this.service.post('/addTask', {name, bio, frequency, hoursObj, minutesObj})
     .then(response => response.data)
   }
 
-  updateTime = (id, hours, minutes, seconds, millis, timeLapsed, finished) => {
-    return this.service.post(`/${id}/updateTime`, {hours, minutes, seconds, millis, timeLapsed, finished})
+  updateTime = (id, hours, minutes, seconds, millis, timeLapsed, finished, overTime) => {
+    return this.service.post(`/${id}/updateTime`, {hours, minutes, seconds, millis, timeLapsed, finished, overTime})
     .then(response => response.data)
   }
 
