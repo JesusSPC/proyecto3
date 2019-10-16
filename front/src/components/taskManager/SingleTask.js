@@ -14,80 +14,71 @@ export default class SingleTask extends Component {
   constructor(props) {
     super(props);
     this.service = new TaskService();
+    this.today = new Date();
 
     this.state = {
+      hours: "",
       minutes: "",
       seconds: "",
       millis: "",
       timeSpent: "00:00",
-      timeLapsed: ""
+      timeLapsed: "",
+      todayNow: this.today,
+      completed: false
     };
   }
 
-  // saveTimer(time) {
-  //   let id = this.props.task._id;
-  //   let { minutes, seconds, millis } = time;
-  //   let timeLapsed = `${minutes}:${seconds}`;
-  //   this.service
-  //     .updateTime(id, minutes, seconds, millis, timeLapsed)
-
-  //     .then(task => {
-  //       let minutes = task.updatedTime.minutes;
-  //       let seconds = task.updatedTime.seconds;
-  //       let timeLapsed = `${minutes}:${seconds}`;
-  //       let timeSplited = timeLapsed.split(":");
-  //       for (let i = 0; i < timeSplited.length; i++) {
-  //         if (timeSplited[i].length === 1) {
-  //           timeSplited[i] = "0" + timeSplited[i];
-  //         }
-  //       }
-  //       let timeSpent = timeSplited.join(":");
-
-  //       this.setState({
-  //         ...this.state,
-  //         minutes: minutes,
-  //         seconds: seconds,
-  //         millis: millis,
-  //         timeSpent: timeSpent
-  //       });
-  //     });
-  // }
-
   saveTimer(time) {
     let id = this.props.task._id;
-    let { minutes, seconds, millis } = time;
+    let { hours, minutes, seconds, millis } = time;
 
     this.service.singleTask(id)
       .then(taskFound => {
-      
+        let hrs = hours + taskFound.taskFound.hours;
         let min = minutes + taskFound.taskFound.minutes;
         let sec = seconds + taskFound.taskFound.seconds;
         let mill = millis + taskFound.taskFound.millis;
+        min = min >= 60 ? (min - 60) && (hrs += 1) : min;
         sec = sec >= 60 ? (sec - 60) && (min += 1) : sec;
         mill = mill >= 10 ? (mill - 10) && (sec += 1) : mill;
     
-
-        let timeLapsed = `${min}:${sec}`;
+        let timeLapsed = `${hrs}:${min}:${sec}`;
         let timeSplited = timeLapsed.split(":");
         for (let i = 0; i < timeSplited.length; i++) {
           if (timeSplited[i].length === 1) {
             timeSplited[i] = "0" + timeSplited[i];
           }
         }
+        
         let timeSpent = timeSplited.join(":");
-        console.log(timeSpent)
-
-
+        console.log(taskFound.taskFound.time, +min)
+        taskFound.taskFound.time <= +min?
+        
         this.service
-        .updateTime(id, min, sec, mill, timeSpent)
+        .updateTime(id, 0, 0, 0, 0, "00:00:00", true)
         .then(updatedTime => {
         this.setState({
           ...this.state,
-          minutes: minutes,
-          seconds: seconds,
-          millis: millis,
-          timeSpent: timeSpent
-        })});
+          hours: hrs,
+          minutes: min,
+          seconds: sec,
+          millis: mill,
+          timeSpent: "00:00:00",
+          completed: true
+        })})
+        : 
+        this.service
+        .updateTime(id, hrs, min, sec, mill, timeSpent, false)
+        .then(updatedTime => {
+        this.setState({
+          ...this.state,
+          hours: hrs,
+          minutes: min,
+          seconds: sec,
+          millis: mill,
+          timeSpent: timeSpent,
+          completed: false
+        })})
       });
   }
 
@@ -98,7 +89,7 @@ export default class SingleTask extends Component {
     });
     
     this.service.retrieveTime(this.props.task._id).then(retrievedTime => {
-      let { minutes, seconds, millis, timeLapsed } = retrievedTime.taskFound;
+      let { hours, minutes, seconds, millis, timeLapsed, finished } = retrievedTime.taskFound;
       let timeSplited = timeLapsed.split(":");
       for (let i = 0; i < timeSplited.length; i++) {
         if (timeSplited[i].length === 1) {
@@ -108,10 +99,12 @@ export default class SingleTask extends Component {
       let timeSpent = timeSplited.join(":");
       this.setState({
         ...this.state,
+        hours: hours,
         minutes: minutes,
         seconds: seconds,
         millis: millis,
-        timeSpent: timeSpent
+        timeSpent: timeSpent,
+        finished: true
       });
     });
   }
@@ -124,11 +117,12 @@ export default class SingleTask extends Component {
           icon={<i className="material-icons">more_vert</i>}
         >
           <div>
+            {/* <p>{this.state.completed ? "Completed" : null}</p> */}
             <p>{this.props.task.bio}</p>
             <p>{this.props.task.time}:00</p>
             <p>
               Currently:
-              {this.state.timeSpent === "00" ? "00:00" : this.state.timeSpent}
+              {this.state.timeSpent === "00" ? "00:00:00" : this.state.timeSpent}
             </p>
           </div>
           <div>
@@ -141,6 +135,9 @@ export default class SingleTask extends Component {
               Created:{" "}
               <Moment format="YYYY/MM/DD">{this.props.task.created_at}</Moment>
             </p>
+
+            <p><Moment format="dddd DD/MM/YYYY">{this.state.todayNow}</Moment></p>
+
             <a href="#editTask" className="btn modal-trigger">
             <i className="material-icons">edit</i>
             </a>

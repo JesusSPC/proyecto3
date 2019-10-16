@@ -34,8 +34,8 @@ class TaskService {
     .then(response => response.data)
   }
 
-  updateTime = (id, minutes, seconds, millis, timeLapsed) => {
-    return this.service.post(`/${id}/updateTime`, {minutes, seconds, millis, timeLapsed})
+  updateTime = (id, hours, minutes, seconds, millis, timeLapsed, finished) => {
+    return this.service.post(`/${id}/updateTime`, {hours, minutes, seconds, millis, timeLapsed, finished})
     .then(response => response.data)
   }
 

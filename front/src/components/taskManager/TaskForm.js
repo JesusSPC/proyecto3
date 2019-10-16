@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import TaskService from "./TaskService.js";
+import M from "materialize-css/dist/js/materialize.min.js";
 
 export default class TaskForm extends Component {
   constructor(props) {
@@ -8,40 +9,47 @@ export default class TaskForm extends Component {
     this.service = new TaskService();
   }
 
-  handleFormSubmit = (event) => {
+  handleFormSubmit = event => {
     event.preventDefault();
     const name = this.state.name;
     const bio = this.state.bio;
     const time = this.state.time;
     const frequency = this.state.frequency;
 
-    if(name && bio && time){
-
-    this.service.addTask(name, bio, time, frequency)
-    .then( response => {
-        this.setState({
-            name: "", 
+    if (name && bio && time) {
+      this.service
+        .addTask(name, bio, time, frequency)
+        .then(response => {
+          this.setState({
+            name: "",
             bio: "",
             time: "",
             frequency: ""
+          });
+          this.props.tasks(response.tasks);
+        })
+        .catch(error => {
+          this.setState({
+            name: name,
+            bio: bio,
+            time: time,
+            frequency: frequency,
+            error: true
+          });
         });
-        this.props.tasks(response.tasks)
-    })
-    .catch(error => {
-      this.setState({
-        name: name,
-        bio: bio,
-        time: time,
-        frequency: frequency,
-        error: true
-      });
-    })
-  }
-  }
+    }
+  };
 
-  handleChange = (event) => {  
-    const {name, value} = event.target;
-    this.setState({[name]: value});
+  handleChange = event => {
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
+  };
+
+  componentDidMount() {
+    document.addEventListener("DOMContentLoaded", function() {
+      var elems = document.querySelectorAll("select");
+      var instances = M.FormSelect.init(elems, {});
+    });
   }
 
   render() {
@@ -77,18 +85,19 @@ export default class TaskForm extends Component {
             onChange={e => this.handleChange(e)}
           />
         </fieldset>
-
-        <fieldset>
-          <label>Frequency: </label>
-          <select onChange={e => this.handleChange(e)}>
-            <option name="frequency" value={this.state.frequency}>Day</option>
-            <option name="frequency" value={this.state.frequency}>Week</option>
-            <option name="frecuency" value={this.state.frequency}>Month</option>
-          </select>
-        </fieldset>
+        <label>Select your plan: </label>
+        <select className="browser-default">
+          <option value="" disabled selected>
+            Choose your option
+          </option>
+          <option value="Day">Day</option>
+          <option value="Week">Week</option>
+          <option value="Month">Month</option>
+        </select>
 
         <input type="submit" value="New Project" />
       </form>
+
     );
   }
 }

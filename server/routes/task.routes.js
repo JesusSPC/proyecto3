@@ -105,11 +105,11 @@ router.post("/:id/editTask", (req, res, next) => {
 
 router.post("/:id/updateTime", (req, res, next) => {
   const id = req.params.id;
-  let { minutes, seconds, millis, timeLapsed } = req.body;
+  let { hours, minutes, seconds, millis, timeLapsed, finished } = req.body;
 
     Task.findByIdAndUpdate(
       id,
-      { minutes, seconds, millis, timeLapsed },
+      { hours, minutes, seconds, millis, timeLapsed, finished },
       { new: true }
     )
       .then(updatedTime => {
