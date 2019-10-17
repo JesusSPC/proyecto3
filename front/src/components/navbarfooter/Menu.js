@@ -5,8 +5,6 @@ import { Link } from "react-router-dom";
 export default class Menu extends Component {
   render() {
     return (
-      <div>
-        <div>
           <nav className="menu-footer blue">
             <ul>
               <li>
@@ -20,8 +18,6 @@ export default class Menu extends Component {
               </li>
             </ul>
           </nav>
-        </div>
-      </div>
     );
   }
 }

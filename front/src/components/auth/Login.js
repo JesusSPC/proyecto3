@@ -1,20 +1,22 @@
 // auth/Signup.js
-import React, { Component } from 'react';
-import AuthService from './AuthService.js'
+import React, { Component } from "react";
+import AuthService from "./AuthService.js";
+import { Button } from "react-materialize";
 
 class Login extends Component {
   constructor(props) {
     super(props);
-    this.state = { username: '', password: '' };
+    this.state = { username: "", password: "" };
     this.service = new AuthService();
   }
 
-  handleFormSubmit = (event) => {
+  handleFormSubmit = event => {
     event.preventDefault();
     const username = this.state.username;
     const password = this.state.password;
 
-    this.service.login(username, password)
+    this.service
+      .login(username, password)
       .then(response => {
         this.setState({
           username: username,
@@ -22,7 +24,7 @@ class Login extends Component {
           error: false
         });
 
-        this.props.getUser(response)
+        this.props.getUser(response);
       })
       .catch(error => {
         this.setState({
@@ -30,35 +32,51 @@ class Login extends Component {
           password: password,
           error: true
         });
-      })
-  }
+      });
+  };
 
-  handleChange = (event) => {
+  handleChange = event => {
     const { name, value } = event.target;
     this.setState({ [name]: value });
-  }
+  };
 
   render() {
+    return (
+      <div>
+        <form className="task-form" onSubmit={this.handleFormSubmit}>
+          <fieldset>
+            <label>Username:</label>
+            <div className="form-field valign-wrapper">
+              <i class="material-icons prefix">account_circle</i>
+              <input
+                type="text"
+                name="username"
+                value={this.state.username}
+                onChange={e => this.handleChange(e)}
+              />
+            </div>
+          </fieldset>
 
-    return (<div>
-      <h3>Please, login to our site</h3>
+          <fieldset>
+            <label>Password:</label>
+            <div className="form-field valign-wrapper">
+              <i class="material-icons prefix">lock</i>
+              <input
+                type="password"
+                name="password"
+                value={this.state.password}
+                onChange={e => this.handleChange(e)}
+              />
+            </div>
+          </fieldset>
+          <Button type="submit" value="Login">
+          Sign In
+          </Button>
+        </form>
 
-      <form onSubmit={this.handleFormSubmit}>
-        <fieldset>
-          <label>Username:</label>
-          <input type="text" name="username" value={this.state.username} onChange={e => this.handleChange(e)} />
-        </fieldset>
-
-        <fieldset>
-          <label>Password:</label>
-          <input type="password" name="password" value={this.state.password} onChange={e => this.handleChange(e)} />
-        </fieldset>
-
-        <input type="submit" value="Login" />
-      </form>
-
-      <h1>{this.state.error ? 'Error' : ''}</h1>
-    </div>)
+        <h1>{this.state.error ? "Invalid username or password." : ""}</h1>
+      </div>
+    );
   }
 }
 

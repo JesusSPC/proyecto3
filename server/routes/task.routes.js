@@ -84,17 +84,16 @@ router.post("/addTask", (req, res, next) => {
 
 router.post("/:id/editTask", (req, res, next) => {
   const id = req.params.id;
-  const { name, bio, time, frequency } = req.body;
-
+  const { name, bio, frequency, hoursObj, minutesObj } = req.body;
+  console.log(name, bio, frequency, hoursObj, minutesObj)
   Task.findByIdAndUpdate(
     id,
-    { name, bio, time, frequency },
+    { name, bio, frequency, hoursObj, minutesObj },
     { new: true }
   ).then(editedTask => {
     User.findById(req.user._id)
       .populate("tasksId")
       .then(user => {
-        res;
         res
           .status(200)
           .json({ Task: "task edited successfully", tasks: user.tasksId });

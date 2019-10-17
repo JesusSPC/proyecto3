@@ -1,0 +1,35 @@
+.task-form {
+  display: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  width: 80%;
+
+}
+
+  h4 {
+  text-align:center;
+  font-size: 40px;
+}
+
+.select-box {
+  margin: 0 10px;
+}
+
+.task-form label {
+  margin-left: 35px;
+}
+
+.form-field {
+  display: flex;
+}
+
+.task-form Button {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.form-field i {
+  padding-right: 10px;
+  margin-bottom: 8px;
+}

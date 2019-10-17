@@ -58,15 +58,15 @@ class App extends Component {
           <Redirect to="/task-manager" />
 
           <div className="App">
-            <header className="App-header">
               <Navbar userInSession={this.state.loggedInUser} logout={this.logout} />
+            <header className="App-header">
               <Switch>
                 <Route exact path="/task-manager" render={() => <TaskManager getUser={this.getUser} />} />
                 <Route exact path="/stats" render={() => <TaskStats getUser={this.getUser} />} />
                 <Route exact path="/news" render={() => <TaskNews getUser={this.getUser} />} />
               </Switch>
-              <Menu />
             </header>
+            <Menu className="nav-bottom"/>
           </div>
         </React.Fragment>
       );
@@ -75,30 +75,18 @@ class App extends Component {
       return (
         <React.Fragment>
           <Redirect to="/login" />
-
-          {/* <div className="App">
-            <header className="App-header">
-              <Navbar userInSession={this.state.loggedInUser} logout={this.logout} />
-              <Switch>     
-                <Route exact path="/signup" render={() => 
-                <Signup getUser={this.getUser} />} />
-                <Route exact path="/login" render={() => <Login getUser={this.getUser} />} />
-              </Switch>
-            </header>
-          </div> */}
-
             <div className="App">
-            <header className="App-header">
-            <a href="#signup" className="btn modal-trigger">Sign up</a>
-              <Modal header="Get ready to enjoy!" id="signup">
-                <Signup getUser={this.getUser} />
-              </Modal> 
-            <a href="#login" className="btn modal-trigger">Sign in</a>
-              <Modal header="Sign in" id="login">
-                <Login getUser={this.getUser} />
-              </Modal> 
-            </header>
+              <div className="btns-auth">
+                <a href="#signup" className="btn modal-trigger">Sign up</a>
+                <Modal header="Get ready to enjoy!" id="signup">
+                  <Signup getUser={this.getUser} />
+                </Modal> 
+                <a href="#login" className="btn modal-trigger">Sign in</a>
+                <Modal header="Sign in" id="login">
+                  <Login getUser={this.getUser} />
+                </Modal> 
               </div>
+            </div>
         </React.Fragment>
       );
     }

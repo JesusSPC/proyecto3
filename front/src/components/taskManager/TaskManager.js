@@ -58,9 +58,9 @@ export default class TaskManager extends Component {
   render() {
     return (
       <div>
-        <div>
+        <div className="task-new">
         <a href="#newTask" className="btn modal-trigger">+New Project</a>
-        <Modal header="What you wanna do?" id="newTask">
+        <Modal  header="New activity" id="newTask">
         <TaskForm tasks={tasks => this.setTasks(tasks)}></TaskForm>
         </Modal>
         </div>

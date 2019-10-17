@@ -68,8 +68,6 @@ export default class SingleTask extends Component {
       }
     }
 
-    console.log(overTime)
-
       taskFound.taskFound.hoursObj <= hrs && taskFound.taskFound.minutesObj <= min
         ? this.service
             .updateTime(id, 0, 0, 0, 0, "00:00:00", true, overTime)
@@ -176,7 +174,7 @@ export default class SingleTask extends Component {
               <i className="material-icons">edit</i>
             </a>
 
-            <Modal header="Change your project" id="editTask">
+            <Modal header="Change your activity" id="editTask">
               <TaskEdit
                 task={this.props.task}
                 tasks={tasks => this.props.tasks(tasks)}

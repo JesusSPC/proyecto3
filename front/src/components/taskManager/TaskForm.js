@@ -1,11 +1,18 @@
 import React, { Component } from "react";
 import TaskService from "./TaskService.js";
+import { Button } from "react-materialize";
 import M from "materialize-css/dist/js/materialize.min.js";
 
 export default class TaskForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { name: "", bio: "", hoursObj: "", minutesObj: "", frequency: "" };
+    this.state = {
+      name: "",
+      bio: "",
+      hoursObj: "",
+      minutesObj: "",
+      frequency: ""
+    };
     this.service = new TaskService();
   }
 
@@ -14,8 +21,8 @@ export default class TaskForm extends Component {
     const name = this.state.name;
     const bio = this.state.bio;
     const frequency = this.state.frequency || "Day";
-    const hoursObj = this.state.hoursObj;
-    const minutesObj = this.state.minutesObj;
+    const hoursObj = this.state.hoursObj || "";
+    const minutesObj = this.state.minutesObj || "";
 
     if (name && bio && (hoursObj || minutesObj)) {
       this.service
@@ -59,55 +66,76 @@ export default class TaskForm extends Component {
     return (
       <form className="task-form" onSubmit={this.handleFormSubmit}>
         <fieldset>
-          <label>Name: </label>
-          <input
-            type="text"
-            name="name"
-            value={this.state.name}
-            placeholder="Your activity..."
-            onChange={e => this.handleChange(e)}
-          />
+          <label>Title: </label>
+          <div className="form-field valign-wrapper">
+            <i class="material-icons prefix">fiber_new</i>
+            <input
+              type="text"
+              name="name"
+              value={this.state.name}
+              placeholder="Your activity..."
+              onChange={e => this.handleChange(e)}
+            />
+          </div>
         </fieldset>
 
         <fieldset>
           <label>Bio: </label>
-          <input
-            type="text"
-            name="bio"
-            value={this.state.bio}
-            onChange={e => this.handleChange(e)}
-          />
+          <div className="form-field valign-wrapper">
+            <i class="material-icons prefix">notes</i>
+            <input
+              type="text"
+              name="bio"
+              value={this.state.bio}
+              onChange={e => this.handleChange(e)}
+            />
+          </div>
         </fieldset>
 
         <fieldset>
           <label>Hours: </label>
-          <input
-            type="number"
-            name="hoursObj"
-            value={this.state.hoursObj}
-            onChange={e => this.handleChange(e)}
-          />
+          <div className="form-field valign-wrapper">
+            <i class="material-icons prefix">access_time</i>
+            <input
+              type="number"
+              name="hoursObj"
+              value={this.state.hoursObj}
+              onChange={e => this.handleChange(e)}
+            />
+          </div>
         </fieldset>
         <fieldset>
           <label>Minutes: </label>
-          <input
-            type="number"
-            name="minutesObj"
-            value={this.state.minutesObj}
-            onChange={e => this.handleChange(e)}
-          />
+          <div className="form-field valign-wrapper">
+            <i class="material-icons prefix">access_time</i>
+            <input
+              type="number"
+              name="minutesObj"
+              value={this.state.minutesObj}
+              onChange={e => this.handleChange(e)}
+            />
+          </div>
         </fieldset>
-        <label>Select your plan: </label>
-        <select name="frequency" className="browser-default" onChange={e => this.handleChange(e)}>
-          <option value="" disabled selected>
-            Choose your option
-          </option>
-          <option value="Day">Day</option>
-          <option value="Week">Week</option>
-          <option value="Month">Month</option>
-        </select>
 
-        <input type="submit" value="New Project" />
+        <label>Select your plan: </label>
+        <div className="form-field select-box valign-wrapper">
+          <i class="material-icons prefix">calendar_today</i>
+          <select
+            name="frequency"
+            className="browser-default"
+            onChange={e => this.handleChange(e)}
+          >
+            <option value="" disabled selected>
+              Choose your option
+            </option>
+            <option value="Day">Day</option>
+            <option value="Week">Week</option>
+            <option value="Month">Month</option>
+          </select>
+        </div>
+        <Button type="submit" value="Add Task">
+          Add Task
+        </Button>
       </form>
     );
   }
