@@ -1,11 +1,10 @@
 import React, { Component } from "react";
-import Collapsible from 'react-collapsible';
+import { Collapsible, CollapsibleItem } from "react-materialize";
 import { Modal, Button } from "react-materialize";
 
 import "materialize-css/dist/css/materialize.min.css";
 import M from "materialize-css/dist/js/materialize.min.js";
 
-import Collapsiblebox from "./Collapsiblebox.js";
 import TaskEdit from "./TaskEdit.js";
 import DeleteTask from "./DeleteTask.js";
 import TaskService from "./TaskService.js";
@@ -23,7 +22,7 @@ export default class SingleTask extends Component {
       minutes: "",
       seconds: "",
       millis: "",
-      timeSpent: this.props.timeLapsed,
+      timeSpent: "00:00",
       timeLapsed: "",
       overTime: "",
       todayNow: this.today,
@@ -108,7 +107,6 @@ export default class SingleTask extends Component {
       var instances = M.Collapsible.init(elems, {});
     });
 
-
     this.service.retrieveTime(this.props.task._id).then(retrievedTime => {
       let {
         hours,
@@ -138,14 +136,12 @@ export default class SingleTask extends Component {
   }
 
   render() {
-    console.log(this.state.timeSpent)
-    console.log(this.props.task.timeLapsed)
     return (
-      <Collapsible
-          classParentString="classParentString"
-          openedClassName="openedCollapsible"
-          className="closedCollapsible"
-          trigger={<Collapsiblebox task={this.props.task}/>}
+      <Collapsible>
+        <CollapsibleItem
+          className="collapse"
+          header={this.props.task.name}
+          icon={<i className="material-icons right">more_vert</i>}
         >
           <div>
             {/* <p>{this.state.completed ? "Completed" : null}</p> */}
@@ -156,7 +152,7 @@ export default class SingleTask extends Component {
             : this.props.task.minutesObj
             : "00" }:00</p>
             <p>
-              Currently: {this.props.task.timeLapsed === "0"
+              Currently: {this.state.timeSpent === "00"
                 ? "00:00:00"
                 : this.state.timeSpent}
             </p>
@@ -172,9 +168,9 @@ export default class SingleTask extends Component {
               <Moment format="YYYY/MM/DD">{this.props.task.created_at}</Moment>
             </p>
 
-            {/* <p>
+            <p>
               <Moment format="dddd DD/MM/YYYY">{this.state.todayNow}</Moment>
-            </p> */}
+            </p>
 
             <a href="#editTask" className="btn modal-trigger">
               <i className="material-icons">edit</i>
@@ -200,6 +196,7 @@ export default class SingleTask extends Component {
             </Button> */}
             {/* </Modal> */}
           </div>
+        </CollapsibleItem>
       </Collapsible>
     );
   }

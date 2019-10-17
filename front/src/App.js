@@ -12,7 +12,7 @@ import Login from "./components/auth/Login.js";
 import AuthService from "./components/auth/AuthService.js";
 import TaskManager from "./components/taskManager/TaskManager.js";
 import TaskStats from "./components/taskManager/TaskStats.js";
-import TaskNews from "./components/taskManager/TaskNews.js";
+import TaskNews from "./components/news/TaskNews.js";
 import Menu from "./components/navbarfooter/Menu.js";
 
 class App extends Component {
@@ -55,8 +55,7 @@ class App extends Component {
     if (this.state.loggedInUser) {
       return (
         <React.Fragment>
-          <Redirect to="/task-manager" />
-
+          <Redirect to="/news" />
           <div className="App">
               <Navbar userInSession={this.state.loggedInUser} logout={this.logout} />
             <header className="App-header">

@@ -1,0 +1,28 @@
+.news-box, .col {
+  display: flex;
+  flex-wrap: nowrap;
+  // justify-content: center;
+  // align-items: center;
+}
+
+.news-article {
+  margin: 0 20px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-title {
+  color: black;
+  text-align: left;
+}
+
+.card p {
+  font-size: 14px;
+  text-align: left;
+}
+
+.last-box {
+  margin-top: 100px;
+}

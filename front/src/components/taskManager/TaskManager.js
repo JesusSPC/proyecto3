@@ -10,7 +10,10 @@ export default class TaskManager extends Component {
     super(props);
     this.service = new TaskService();
     this.state = {
-      tasks: []
+      tasks: [],
+      sortedByName: false,
+      sortedByTime: false,
+      sortedByDate: false
     };
   }
 
@@ -36,19 +39,69 @@ export default class TaskManager extends Component {
 
   sortByTime(e) {
     e.preventDefault();
-    let clonedTasks = [...this.state.tasks]
-    let sortedTasks = clonedTasks.sort((a, b) => a.time < b.time ? 1 : -1)
-    this.setTasks(sortedTasks);
+    let order;
+    let clonedTasks = [...this.state.tasks];
+    let sortedByTime = clonedTasks.sort((a, b) => {
+      if (this.state.sortedByTime === true) {
+        order = false;
+        return a.time > b.time ? 1 : -1;
+      } else {
+        order = true;
+        return a.time < b.time ? 1 : -1;
+      }
+    });
+    console.log(order)
+    this.setState({
+      ...this.state,
+      tasks: sortedByTime,
+      sortedByTime: order
+    });
   }
 
   sortByName(e) {
     e.preventDefault();
-    let clonedTasks = [...this.state.tasks]
-    let sortedTasks = clonedTasks.sort((a, b) => a.name < b.name ? 1 : -1)
-    this.setTasks(sortedTasks);
+    let order;
+    let clonedTasks = [...this.state.tasks];
+    let sortedByName = clonedTasks.sort((a, b) => {
+      if (this.state.sortedByName === true) {
+        order = false;
+        return a.name > b.name ? 1 : -1;
+      } else {
+        order = true;
+        return a.name < b.name ? 1 : -1;
+      }
+    });
+    console.log(order)
+    this.setState({
+      ...this.state,
+      tasks: sortedByName,
+      sortedByName: order
+    });
+  }
+
+  sortByDate(e) {
+    e.preventDefault();
+    let order;
+    let clonedTasks = [...this.state.tasks];
+    let sortedByDate = clonedTasks.sort((a, b) => {
+      if (this.state.sortedByDate === true) {
+        order = false;
+        return a.name > b.name ? 1 : -1;
+      } else {
+        order = true;
+        return a.name < b.name ? 1 : -1;
+      }
+    });
+    console.log(order)
+    this.setState({
+      ...this.state,
+      tasks: sortedByDate,
+      sortedByDate: order
+    });
   }
 
   setTasks(tasks) {
+    console.log(tasks)
     this.setState({
       ...this.state,
       tasks: tasks
@@ -59,14 +112,17 @@ export default class TaskManager extends Component {
     return (
       <div>
         <div className="task-new">
-        <a href="#newTask" className="btn modal-trigger">+New Project</a>
-        <Modal  header="New activity" id="newTask">
-        <TaskForm tasks={tasks => this.setTasks(tasks)}></TaskForm>
-        </Modal>
+          <a href="#newTask" className="btn modal-trigger">
+            +New Project
+          </a>
+          <Modal header="New activity" id="newTask">
+            <TaskForm tasks={tasks => this.setTasks(tasks)}></TaskForm>
+          </Modal>
         </div>
-        <div>
-        <Button onClick={(e) => this.sortByName(e)}>By name</Button>
-        <Button onClick={(e) => this.sortByTime(e)}>By time</Button>
+        <div className="sorts">
+          <Button onClick={e => this.sortByName(e)}>By name</Button>
+          <Button onClick={e => this.sortByDate(e)}>By date</Button>
+          <Button onClick={e => this.sortByTime(e)}>By time</Button>
         </div>
         {this.state.tasks.map((task, idx) => {
           return (

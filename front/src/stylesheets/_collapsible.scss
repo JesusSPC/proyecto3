@@ -1,0 +1,27 @@
+.collapseBox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #383bd1;
+  color: white;
+  // text-align: left;
+  padding: 10px 10px 10px 20px;
+  border: none;
+  width: 100%;
+  font-size: 16px;
+}
+
+.classParentString {
+  overflow: hidden;
+  width: 100%;
+}
+
+.openedCollapsible {
+  background-color: white;
+  padding: 0 0 20px 0;
+}
+
+.closedCollapsible {
+  background-color: white;
+  // padding: 0 0 40px 0;
+}
