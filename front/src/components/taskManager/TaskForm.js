@@ -82,13 +82,14 @@ import {withRouter} from 'react-router-dom'
         </fieldset>
 
         <fieldset>
-          <label>Bio: </label>
+          <label>Description: </label>
           <div className="form-field valign-wrapper">
             <i class="material-icons prefix">notes</i>
             <input
               type="text"
               name="bio"
               value={this.state.bio}
+              placeholder="A description..."
               onChange={e => this.handleChange(e)}
             />
           </div>
@@ -101,6 +102,7 @@ import {withRouter} from 'react-router-dom'
             <input
               type="number"
               name="hoursObj"
+              placeholder="Hours..."
               value={this.state.hoursObj}
               onChange={e => this.handleChange(e)}
             />
@@ -113,6 +115,7 @@ import {withRouter} from 'react-router-dom'
             <input
               type="number"
               name="minutesObj"
+              placeholder="Minutes..."
               value={this.state.minutesObj}
               onChange={e => this.handleChange(e)}
             />

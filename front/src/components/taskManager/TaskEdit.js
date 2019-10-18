@@ -55,7 +55,13 @@ export default class TaskEdit extends Component {
     this.setState({ [name]: value });
   };
 
+  // componentDidMount(){
+  //   let clonedState = {...this.props.task}
+  //   this.setState(clonedState)
+  // }
+
   render() {
+    console.log(this.state.name)
     return (
       <form className="task-form" onSubmit={this.handleFormSubmit}>
         <fieldset>
@@ -66,6 +72,7 @@ export default class TaskEdit extends Component {
               type="text"
               name="name"
               value={this.state.name}
+              placeholder={this.state.name}
               maxlength="24"
               onChange={e => this.handleChange(e)}
             />
@@ -73,14 +80,14 @@ export default class TaskEdit extends Component {
         </fieldset>
 
         <fieldset>
-          <label>Bio: </label>
+          <label>Description: </label>
           <div className="form-field valign-wrapper">
             <i class="material-icons prefix">notes</i>
             <input
               type="text"
               name="bio"
               value={this.state.bio}
-              maxlength="140"
+              maxlength="30"
               onChange={e => this.handleChange(e)}
             />
           </div>

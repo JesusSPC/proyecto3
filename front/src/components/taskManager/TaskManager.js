@@ -101,7 +101,6 @@ export default class TaskManager extends Component {
   }
 
   setTasks(tasks) {
-    console.log(tasks)
     this.setState({
       tasks
     });
@@ -111,7 +110,7 @@ export default class TaskManager extends Component {
     return (
       <div>
         <div className="task-new">
-          <a href="#newTask" className="btn modal-trigger">
+          <a href="#newTask" className="btn orange modal-trigger">
             +New Project
           </a>
           <Modal header="New activity" id="newTask">
@@ -125,12 +124,14 @@ export default class TaskManager extends Component {
         </div>
         {this.state.tasks.map((task, idx) => {
           return (
-            <div className="task-box" key={task._id}>
+            <div className="task-box"
+             key={task._id}
+             >
               <Task
                 tasks={tasks => this.setTasks(tasks)}
                 deleteTask={() => this.deleteTask(task._id)}
                 task={task}
-                
+                key={task._id}
               ></Task>
             </div>
           );

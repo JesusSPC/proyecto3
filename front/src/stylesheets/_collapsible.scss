@@ -17,11 +17,23 @@
 }
 
 .openedCollapsible {
-  background-color: white;
+  transition: background-color 1.5s ease;
+  background-color: rgba($color: #9bbbff, $alpha: 0.8);
   padding: 0 0 20px 0;
 }
 
+.openedCollapsible:hover {
+  background-color: #d0effc;
+}
+
 .closedCollapsible {
-  background-color: white;
-  // padding: 0 0 40px 0;
+  background-color: rgba($color: #eaf9ff, $alpha: 0.8);
+}
+
+.created {
+  margin-bottom: 10px;
+}
+
+.timer {
+  margin-bottom: 20px;
 }

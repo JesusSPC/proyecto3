@@ -1,29 +1,30 @@
-/* .nav-center {
-	display: flex;
-	justify-content: center;
+.nav-style ul {
+  display: flex;
+  list-style: none;
+	justify-content: right;
 	align-items: center;
-} */
-
-.nav-style li {
-	height: 100%;
-
+	flex-direction: row-reverse;
+	;
 }
 
 .nav-style li {
-	margin-right: 0;
+  margin-right: 20px;
+  color: white;
 }
 
-.navbar-float {
-	position: relative;
+.nav-style a {
+  color: white;
+  text-decoration: underline !important;
+}
+
+.logo2 {
+	position: absolute;
+	display: inline-block;
+	top: 0px;
+	right:44%;
 }
 
 .logo-nav {
-	padding-top: 5px;
-	height: 50px;
-}
-
-.logout {
-	position: fixed;
-	margin-right: 20px;
-	right: 0;
+	padding-top: 20px;
+	height: 70px;
 }

@@ -73,7 +73,6 @@ class App extends Component {
           </div>
         </React.Fragment>
       );
-
     } else {
       return (
         <React.Fragment>

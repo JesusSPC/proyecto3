@@ -24,20 +24,21 @@ class Navbar extends Component {
   render() {
     if (this.state.loggedInUser) {
       return (
-        <nav className="navbar nav-style blue navbar-float">
-          <ul>
-            {/* <li>
-              <h2>{this.state.loggedInUser.username}</h2>
-            </li> */}
-            <li>
-              <img className="logo-nav" src={Logo} alt="Qualitime Logo" />
-            </li>
-            <span className="logout">
-              <a onClick={this.handleLogout}><i className="material-icons">exit_to_app</i></a>
-          </span>
-          </ul>
-
-        </nav>
+        <React.Fragment>
+          <div className="logo2">
+            <img className="logo-nav" src={Logo} alt="Qualitime Logo" />
+          </div>
+          <nav className="navbar nav-style blue navbar-float">
+            <ul>
+              <li>
+                <a onClick={this.handleLogout}>
+                  <i className="material-icons">exit_to_app</i>
+                </a>
+              </li>
+            </ul>
+          </nav>
+          
+        </React.Fragment>
       );
     } else {
       return (

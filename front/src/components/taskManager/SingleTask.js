@@ -7,7 +7,6 @@ import M from "materialize-css/dist/js/materialize.min.js";
 
 import Collapsiblebox from "./Collapsiblebox.js";
 import TaskEdit from "./TaskEdit.js";
-import DeleteTask from "./DeleteTask.js";
 import TaskService from "./TaskService.js";
 import Timer from "../timer/Timer.js";
 import Moment from "react-moment";
@@ -56,19 +55,19 @@ export default class SingleTask extends Component {
 
       let overTime = "";
 
-    //   if (taskFound.taskFound.hoursObj <= hrs) {
-    //     let hour = (hrs - taskFound.taskFound.hoursObj).length === 1 ?
-    //      `0${hrs - taskFound.taskFound.hoursObj}`
-    //      : hrs - taskFound.taskFound.hoursObj
-    //     let minit = (min - taskFound.taskFound.minutesObj).length === 1 ?
-    //     `0${min - taskFound.taskFound.minutesObj}`
-    //     : min - taskFound.taskFound.minutesObj
-    //     if(taskFound.taskFound.minutesObj <= min){
-    //     overTime = `${hour}:${minit}`;
-    //   } else{
-    //     overTime = `${hour - 1}:${minit + 60}`;
-    //   }
-    // }
+      if (taskFound.taskFound.hoursObj <= hrs) {
+        let hour = (hrs - taskFound.taskFound.hoursObj).length === 1 ?
+         `0${hrs - taskFound.taskFound.hoursObj}`
+         : hrs - taskFound.taskFound.hoursObj
+        let minit = (min - taskFound.taskFound.minutesObj).length === 1 ?
+        `0${min - taskFound.taskFound.minutesObj}`
+        : min - taskFound.taskFound.minutesObj
+        if(taskFound.taskFound.minutesObj <= min){
+        overTime = `${hour}:${minit}`;
+      } else{
+        overTime = `${hour - 1}:${minit + 60}`;
+      }
+    }
 
       taskFound.taskFound.hoursObj <= hrs && taskFound.taskFound.minutesObj <= min
         ? this.service
@@ -138,8 +137,6 @@ export default class SingleTask extends Component {
   }
 
   render() {
-    console.log(this.state.timeSpent)
-
     return (
       <Collapsible
           classParentString="classParentString"
@@ -152,22 +149,22 @@ export default class SingleTask extends Component {
             <p>{this.props.task.bio}</p>
             <p>{this.props.task.hoursObj ? this.props.task.hoursObj : "00"}
             :{this.props.task.minutesObj ? 
-            this.props.task.minutesObj.length === 1 ? `0${this.props.task.minutesObj}`
+            this.props.task.minutesObj < 10 ? `0${this.props.task.minutesObj}`
             : this.props.task.minutesObj
             : "00" }:00</p>
             <p>
-              Currently: {this.state.timeSpent === "0"
+              Currently: {this.state.timeSpent === "00"
                 ? "00:00:00"
                 : this.state.timeSpent}
             </p>
           </div>
           <div>
-            <Timer
+            <Timer className="timer"
               saveTimer={time => this.saveTimer(time)}
               time={this.state}
               task={this.props.task}
             ></Timer>
-            <p>
+            <p className="created">
               Created:{" "}
               <Moment format="YYYY/MM/DD">{this.props.task.created_at}</Moment>
             </p>
@@ -180,13 +177,13 @@ export default class SingleTask extends Component {
               <i className="material-icons">edit</i>
             </a>
 
-            <Modal header="Change your activity" id="editTask">
+            <Modal key={this.props.key} header="Change your activity" id="editTask">
               <TaskEdit
                 task={this.props.task}
                 tasks={tasks => this.props.tasks(tasks)}
               ></TaskEdit>
             </Modal>
-            <Button onClick={() => this.props.deleteTask(this.props.task._id)}>
+            <Button className="red" onClick={() => this.props.deleteTask(this.props.task._id)}>
               <i className="material-icons large">delete</i>
             </Button>
 
