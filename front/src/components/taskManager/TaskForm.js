@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import TaskService from "./TaskService.js";
 import { Button } from "react-materialize";
 import M from "materialize-css/dist/js/materialize.min.js";
+import {withRouter} from 'react-router-dom'
 
-export default class TaskForm extends Component {
+ class TaskForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -28,6 +29,7 @@ export default class TaskForm extends Component {
       this.service
         .addTask(name, bio, frequency, hoursObj, minutesObj)
         .then(response => {
+          this.props.tasks(response.tasks)
           this.setState({
             name: "",
             bio: "",
@@ -35,7 +37,7 @@ export default class TaskForm extends Component {
             hoursObj: "",
             minutesObj: ""
           });
-          this.props.tasks(response.tasks);
+          
         })
         .catch(error => {
           this.setState({
@@ -140,3 +142,4 @@ export default class TaskForm extends Component {
     );
   }
 }
+export default withRouter(TaskForm)

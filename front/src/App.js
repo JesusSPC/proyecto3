@@ -3,6 +3,7 @@ import 'moment-timezone';
 import { Modal } from "react-materialize";
 
 import "./stylesheets/_style.scss";
+import Logo from "../src/images/QualitimeLogo.svg";
 
 import { Switch, Route, Redirect } from "react-router-dom";
 
@@ -55,14 +56,17 @@ class App extends Component {
     if (this.state.loggedInUser) {
       return (
         <React.Fragment>
-          <Redirect to="/news" />
+          <Redirect to="/task-manager" />
           <div className="App">
               <Navbar userInSession={this.state.loggedInUser} logout={this.logout} />
             <header className="App-header">
               <Switch>
                 <Route exact path="/task-manager" render={() => <TaskManager getUser={this.getUser} />} />
+                <Route exact path="/new-task-manager" render={() => <TaskManager getUser={this.getUser} />} />
+
                 <Route exact path="/stats" render={() => <TaskStats getUser={this.getUser} />} />
                 <Route exact path="/news" render={() => <TaskNews getUser={this.getUser} />} />
+                
               </Switch>
             </header>
             <Menu className="nav-bottom"/>
@@ -75,15 +79,20 @@ class App extends Component {
         <React.Fragment>
           <Redirect to="/login" />
             <div className="App">
+              <div className="logo">
+                <img src={Logo} alt="Qualitime Logo"></img>
+                <p className="text-auth">Your time is for you.</p>
+                <p className="text-parr">"Log your hobbies. <br></br> Record your progress. <br></br> Witness your results."</p>
               <div className="btns-auth">
-                <a href="#signup" className="btn modal-trigger">Sign up</a>
+                <a href="#signup" className="btn-large btn-auth modal-trigger">Sign up</a>
                 <Modal header="Get ready to enjoy!" id="signup">
                   <Signup getUser={this.getUser} />
                 </Modal> 
-                <a href="#login" className="btn modal-trigger">Sign in</a>
+                <a href="#login" className="btn-large btn-auth modal-trigger">Sign in</a>
                 <Modal header="Sign in" id="login">
                   <Login getUser={this.getUser} />
                 </Modal> 
+              </div>
               </div>
             </div>
         </React.Fragment>

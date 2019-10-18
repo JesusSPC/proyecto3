@@ -3,6 +3,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import AuthService from "../auth/AuthService.js";
+import Logo from "../../images/QualitimeLogo.svg";
 import "./Navbar.css";
 
 class Navbar extends Component {
@@ -23,15 +24,19 @@ class Navbar extends Component {
   render() {
     if (this.state.loggedInUser) {
       return (
-        <nav className="navbar nav-style blue">
+        <nav className="navbar nav-style blue navbar-float">
           <ul>
             {/* <li>
               <h2>{this.state.loggedInUser.username}</h2>
             </li> */}
             <li>
-              <a onClick={this.handleLogout}>Logout</a>
+              <img className="logo-nav" src={Logo} alt="Qualitime Logo" />
             </li>
+            <span className="logout">
+              <a onClick={this.handleLogout}><i className="material-icons">exit_to_app</i></a>
+          </span>
           </ul>
+
         </nav>
       );
     } else {

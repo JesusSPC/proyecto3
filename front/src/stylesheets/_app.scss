@@ -27,3 +27,42 @@ a {
 .navbar {
   margin-bottom: 40px;
 }
+
+.logo {
+  position: relative;
+  top: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo img {
+  width: 400px;
+}
+
+.text-auth {
+  font-size: 20px;
+  margin-bottom: 30px;
+  color: white;
+}
+
+.text-parr {
+  font-size: 16px;
+  width: 200px;
+  padding-bottom: 100px;
+  line-height: 20px;
+  font-style: italic;
+}
+
+.btns-auth {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 50%;
+  // margin: 400px auto;
+}
+
+.btn-auth {
+  margin-bottom: 30px;
+}

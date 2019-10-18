@@ -56,19 +56,19 @@ export default class SingleTask extends Component {
 
       let overTime = "";
 
-      if (taskFound.taskFound.hoursObj <= hrs) {
-        let hour = (hrs - taskFound.taskFound.hoursObj).length === 1 ?
-         `0${hrs - taskFound.taskFound.hoursObj}`
-         : hrs - taskFound.taskFound.hoursObj
-        let minit = (min - taskFound.taskFound.minutesObj).length === 1 ?
-        `0${min - taskFound.taskFound.minutesObj}`
-        : min - taskFound.taskFound.minutesObj
-        if(taskFound.taskFound.minutesObj <= min){
-        overTime = `${hour}:${minit}`;
-      } else{
-        overTime = `${hour - 1}:${minit + 60}`;
-      }
-    }
+    //   if (taskFound.taskFound.hoursObj <= hrs) {
+    //     let hour = (hrs - taskFound.taskFound.hoursObj).length === 1 ?
+    //      `0${hrs - taskFound.taskFound.hoursObj}`
+    //      : hrs - taskFound.taskFound.hoursObj
+    //     let minit = (min - taskFound.taskFound.minutesObj).length === 1 ?
+    //     `0${min - taskFound.taskFound.minutesObj}`
+    //     : min - taskFound.taskFound.minutesObj
+    //     if(taskFound.taskFound.minutesObj <= min){
+    //     overTime = `${hour}:${minit}`;
+    //   } else{
+    //     overTime = `${hour - 1}:${minit + 60}`;
+    //   }
+    // }
 
       taskFound.taskFound.hoursObj <= hrs && taskFound.taskFound.minutesObj <= min
         ? this.service
@@ -139,7 +139,7 @@ export default class SingleTask extends Component {
 
   render() {
     console.log(this.state.timeSpent)
-    console.log(this.props.task.timeLapsed)
+
     return (
       <Collapsible
           classParentString="classParentString"
@@ -156,7 +156,7 @@ export default class SingleTask extends Component {
             : this.props.task.minutesObj
             : "00" }:00</p>
             <p>
-              Currently: {this.props.task.timeLapsed === "0"
+              Currently: {this.state.timeSpent === "0"
                 ? "00:00:00"
                 : this.state.timeSpent}
             </p>

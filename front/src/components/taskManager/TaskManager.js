@@ -103,8 +103,7 @@ export default class TaskManager extends Component {
   setTasks(tasks) {
     console.log(tasks)
     this.setState({
-      ...this.state,
-      tasks: tasks
+      tasks
     });
   }
 
@@ -126,11 +125,12 @@ export default class TaskManager extends Component {
         </div>
         {this.state.tasks.map((task, idx) => {
           return (
-            <div className="task-box" key={idx}>
+            <div className="task-box" key={task._id}>
               <Task
                 tasks={tasks => this.setTasks(tasks)}
                 deleteTask={() => this.deleteTask(task._id)}
                 task={task}
+                
               ></Task>
             </div>
           );

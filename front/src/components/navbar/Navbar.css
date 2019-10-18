@@ -1,9 +1,29 @@
-.nav-style .header {
+/* .nav-center {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+} */
+
+.nav-style li {
+	height: 100%;
+
 }
 
-.nav-style .header img {
+.nav-style li {
+	margin-right: 0;
+}
+
+.navbar-float {
+	position: relative;
+}
+
+.logo-nav {
+	padding-top: 5px;
+	height: 50px;
+}
+
+.logout {
+	position: fixed;
 	margin-right: 20px;
+	right: 0;
 }
