@@ -55,11 +55,6 @@ export default class TaskEdit extends Component {
     this.setState({ [name]: value });
   };
 
-  // componentDidMount(){
-  //   let clonedState = {...this.props.task}
-  //   this.setState(clonedState)
-  // }
-
   render() {
     console.log(this.state.name)
     return (
