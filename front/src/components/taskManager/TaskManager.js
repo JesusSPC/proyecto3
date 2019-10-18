@@ -50,7 +50,6 @@ export default class TaskManager extends Component {
         return a.time < b.time ? 1 : -1;
       }
     });
-    console.log(order)
     this.setState({
       ...this.state,
       tasks: sortedByTime,
@@ -71,7 +70,6 @@ export default class TaskManager extends Component {
         return a.name < b.name ? 1 : -1;
       }
     });
-    console.log(order)
     this.setState({
       ...this.state,
       tasks: sortedByName,
@@ -92,7 +90,6 @@ export default class TaskManager extends Component {
         return a.name < b.name ? 1 : -1;
       }
     });
-    console.log(order)
     this.setState({
       ...this.state,
       tasks: sortedByDate,

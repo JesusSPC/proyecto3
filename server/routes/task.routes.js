@@ -54,7 +54,6 @@ router.post("/addTask", (req, res, next) => {
     creatorId: req.user
   })
     .then(task => {
-      console.log(task)
       User.findByIdAndUpdate(
         req.user._id,
         {
@@ -85,7 +84,6 @@ router.post("/addTask", (req, res, next) => {
 router.post("/:id/editTask", (req, res, next) => {
   const id = req.params.id;
   const { name, bio, frequency, hoursObj, minutesObj } = req.body;
-  console.log(name, bio, frequency, hoursObj, minutesObj)
   Task.findByIdAndUpdate(
     id,
     { name, bio, frequency, hoursObj, minutesObj },
