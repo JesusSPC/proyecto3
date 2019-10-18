@@ -1,15 +1,13 @@
 .nav-style ul {
   display: flex;
-  list-style: none;
-	justify-content: right;
+	justify-content: space-between;
 	align-items: center;
-	flex-direction: row-reverse;
-	;
+	list-style: none;
+	margin: 0 20px;
 }
 
-.nav-style li {
-  margin-right: 20px;
-  color: white;
+.logout {
+	padding-bottom:20px;
 }
 
 .nav-style a {
@@ -18,10 +16,10 @@
 }
 
 .logo2 {
-	position: fixed;
+	/* position: fixed; */
 	/* display: inline-block; */
-  top: 5px;
-	left: 30px;
+  /* top: 5px;
+	left: 30px; */
 }
 
 .logo-nav {

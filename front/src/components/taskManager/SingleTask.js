@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Collapsible from 'react-collapsible';
+import Collapsible from "react-collapsible";
 import { Modal, Button } from "react-materialize";
 
 import "materialize-css/dist/css/materialize.min.css";
@@ -55,21 +55,27 @@ export default class SingleTask extends Component {
 
       let overTime = "";
 
-      if (taskFound.taskFound.hoursObj <= hrs) {
-        let hour = (hrs - taskFound.taskFound.hoursObj).length === 1 ?
-         `0${hrs - taskFound.taskFound.hoursObj}`
-         : hrs - taskFound.taskFound.hoursObj
-        let minit = (min - taskFound.taskFound.minutesObj).length === 1 ?
-        `0${min - taskFound.taskFound.minutesObj}`
-        : min - taskFound.taskFound.minutesObj
-        if(taskFound.taskFound.minutesObj <= min){
-        overTime = `${hour}:${minit}`;
-      } else{
-        overTime = `${hour - 1}:${minit + 60}`;
-      }
-    }
+      let h = hrs - taskFound.taskFound.hoursObj;
+      let m = min - taskFound.taskFound.minutesObj;
 
-      taskFound.taskFound.hoursObj <= hrs && taskFound.taskFound.minutesObj <= min
+      if (taskFound.taskFound.hoursObj <= hrs) {
+        // let h = hrs - taskFound.taskFound.hoursObj;
+        // let m = min - taskFound.taskFound.minutesObj;
+        let hour = h < 10 ? `0${h}` : h;
+        let minit = m < 10 ? `0${m}` : m;
+        if (taskFound.taskFound.minutesObj <= min) {
+          overTime = `${hour}:${minit}`;
+        } else {
+          overTime = `${hour - 1}:${minit + 60}`;
+        }
+      }
+
+      console.log(h, m)
+
+      console.log(overTime)
+
+      taskFound.taskFound.hoursObj <= hrs &&
+      taskFound.taskFound.minutesObj <= min
         ? this.service
             .updateTime(id, 0, 0, 0, 0, "00:00:00", true, overTime)
             .then(updatedTime => {
@@ -107,7 +113,6 @@ export default class SingleTask extends Component {
       var instances = M.Collapsible.init(elems, {});
     });
 
-
     this.service.retrieveTime(this.props.task._id).then(retrievedTime => {
       let {
         hours,
@@ -139,64 +144,63 @@ export default class SingleTask extends Component {
   render() {
     return (
       <Collapsible
-          classParentString="classParentString"
-          openedClassName="openedCollapsible"
-          className="closedCollapsible"
-          trigger={<Collapsiblebox task={this.props.task}/>}
-        >
-          <div>
-            {/* <p>{this.state.completed ? "Completed" : null}</p> */}
+        classParentString="classParentString"
+        openedClassName="openedCollapsible"
+        className="closedCollapsible"
+        trigger={<Collapsiblebox task={this.props.task} />}
+      >
+        <div className="task-desc">
+          {/* <p>{this.state.completed ? "Completed" : null}</p> */}
+          <div className="bio">
             <p>{this.props.task.bio}</p>
-            <p>{this.props.task.hoursObj ? this.props.task.hoursObj : "00"}
-            :{this.props.task.minutesObj ? 
-            this.props.task.minutesObj < 10 ? `0${this.props.task.minutesObj}`
-            : this.props.task.minutesObj
-            : "00" }:00</p>
-            <p>
-              Currently: {this.state.timeSpent === "00"
-                ? "00:00:00"
-                : this.state.timeSpent}
-            </p>
           </div>
-          <div>
-            <Timer className="timer"
-              saveTimer={time => this.saveTimer(time)}
-              time={this.state}
+          <p>
+            Goal: {this.props.task.hoursObj ? this.props.task.hoursObj : "00"}:
+            {this.props.task.minutesObj
+              ? this.props.task.minutesObj < 10
+                ? `0${this.props.task.minutesObj}`
+                : this.props.task.minutesObj
+              : "00"}
+            :00
+          </p>
+          <p>
+            Currently:{" "}
+            {this.state.timeSpent === "00" ? "00:00:00" : this.state.timeSpent}
+          </p>
+        </div>
+        <div className="time-clock">
+          <Timer
+            className="timer"
+            saveTimer={time => this.saveTimer(time)}
+            time={this.state}
+            task={this.props.task}
+          ></Timer>
+          <p className="created">
+            Created:{" "}
+            <Moment format="YYYY/MM/DD">{this.props.task.created_at}</Moment>
+          </p>
+
+          <a href="#editTask" className="btn modal-trigger">
+            <i className="material-icons">edit</i>
+          </a>
+
+          <Modal
+            key={this.props.key}
+            header="Change your activity"
+            id="editTask"
+          >
+            <TaskEdit
               task={this.props.task}
-            ></Timer>
-            <p className="created">
-              Created:{" "}
-              <Moment format="YYYY/MM/DD">{this.props.task.created_at}</Moment>
-            </p>
-
-            {/* <p>
-              <Moment format="dddd DD/MM/YYYY">{this.state.todayNow}</Moment>
-            </p> */}
-
-            <a href="#editTask" className="btn modal-trigger">
-              <i className="material-icons">edit</i>
-            </a>
-
-            <Modal key={this.props.key} header="Change your activity" id="editTask">
-              <TaskEdit
-                task={this.props.task}
-                tasks={tasks => this.props.tasks(tasks)}
-              ></TaskEdit>
-            </Modal>
-            <Button className="red" onClick={() => this.props.deleteTask(this.props.task._id)}>
-              <i className="material-icons large">delete</i>
-            </Button>
-
-            {/* <a href="#deleteTask" className="btn modal-trigger">
+              tasks={tasks => this.props.tasks(tasks)}
+            ></TaskEdit>
+          </Modal>
+          <Button
+            className="red"
+            onClick={() => this.props.deleteTask(this.props.task._id)}
+          >
             <i className="material-icons large">delete</i>
-            </a> */}
-
-            {/* <Modal header="Are you sure?" id="deleteTask">
-            <Button onClick={() => this.props.deleteTask(this.props.task._id)}>
-              YES
-            </Button> */}
-            {/* </Modal> */}
-          </div>
+          </Button>
+        </div>
       </Collapsible>
     );
   }

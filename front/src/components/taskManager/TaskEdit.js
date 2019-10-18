@@ -56,7 +56,6 @@ export default class TaskEdit extends Component {
   };
 
   render() {
-    console.log(this.state.name)
     return (
       <form className="task-form" onSubmit={this.handleFormSubmit}>
         <fieldset>

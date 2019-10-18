@@ -117,7 +117,7 @@ export default class Timer extends Component {
               <div className="segments">
                 COMPLETED
                 <i class="material-icons">mood</i>
-                {/* <p>{this.props.time.overTime ? this.props.time.overTime : ""}</p> */}
+                <p>{this.props.time.overTime ? `You exceeded by ${this.props.time.overTime}:00!` : ""}</p>
               </div>
             </div>
           </main>

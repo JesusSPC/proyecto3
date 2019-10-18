@@ -18,7 +18,7 @@
 
 .openedCollapsible {
   transition: background-color 1.5s ease;
-  background-color: rgba($color: #9bbbff, $alpha: 0.8);
+  background-color: rgba($color: #84a8f8, $alpha: 0.8);
   padding: 0 0 20px 0;
 }
 
@@ -36,4 +36,20 @@
 
 .timer {
   margin-bottom: 20px;
+}
+
+.task-desc {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.bio {
+  width: 250px;
+  border-bottom: 1px solid black;
+}
+
+.time-clock {
+  // border-top: 1px solid black;
 }

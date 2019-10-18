@@ -115,8 +115,8 @@ export default class TaskManager extends Component {
           </Modal>
         </div>
         <div className="sorts">
-          <Button onClick={e => this.sortByName(e)}>By name</Button>
           <Button onClick={e => this.sortByDate(e)}>By date</Button>
+          <Button onClick={e => this.sortByName(e)}>By name</Button>
           <Button onClick={e => this.sortByTime(e)}>By time</Button>
         </div>
         {this.state.tasks.map((task, idx) => {

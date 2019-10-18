@@ -25,19 +25,18 @@ class Navbar extends Component {
     if (this.state.loggedInUser) {
       return (
         <React.Fragment>
-          <div className="logo2">
-            <img className="logo-nav" src={Logo} alt="Qualitime Logo" />
-          </div>
           <nav className="navbar nav-style blue navbar-float">
             <ul>
-              <li>
+              <li className="logo2">
+                <img className="logo-nav" src={Logo} alt="Qualitime Logo" />
+              </li>
+              <li className="logout">
                 <a onClick={this.handleLogout}>
                   <i className="material-icons">exit_to_app</i>
                 </a>
               </li>
             </ul>
           </nav>
-          
         </React.Fragment>
       );
     } else {
