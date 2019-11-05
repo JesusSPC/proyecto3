@@ -70,13 +70,13 @@ export default class SingleTask extends Component {
         }
       }
 
-      console.log(h, m)
+      console.log(taskFound, hrs)
 
       console.log(overTime)
 
-      taskFound.taskFound.hoursObj <= hrs &&
-      taskFound.taskFound.minutesObj <= min
-        ? this.service
+      if ((taskFound.taskFound.hoursObj <= hrs && taskFound.taskFound.minutesObj <= min) ||
+      (taskFound.taskFound.hoursObj < hrs && taskFound.taskFound.minutesObj > min)){
+        this.service
             .updateTime(id, 0, 0, 0, 0, "00:00:00", true, overTime)
             .then(updatedTime => {
               this.setState({
@@ -90,7 +90,8 @@ export default class SingleTask extends Component {
                 completed: true
               });
             })
-        : this.service
+      } else {
+        this.service
             .updateTime(id, hrs, min, sec, mill, timeSpent, false, overTime)
             .then(updatedTime => {
               this.setState({
@@ -104,6 +105,39 @@ export default class SingleTask extends Component {
                 completed: false
               });
             });
+      }
+
+      // taskFound.taskFound.hoursObj <= hrs &&
+      // taskFound.taskFound.minutesObj <= min
+
+  //       ? this.service
+  //           .updateTime(id, 0, 0, 0, 0, "00:00:00", true, overTime)
+  //           .then(updatedTime => {
+  //             this.setState({
+  //               ...this.state,
+  //               hours: hrs,
+  //               minutes: min,
+  //               seconds: sec,
+  //               millis: mill,
+  //               timeSpent: "00:00:00",
+  //               overTime: overTime,
+  //               completed: true
+  //             });
+  //           })
+  //       : this.service
+  //           .updateTime(id, hrs, min, sec, mill, timeSpent, false, overTime)
+  //           .then(updatedTime => {
+  //             this.setState({
+  //               ...this.state,
+  //               hours: hrs,
+  //               minutes: min,
+  //               seconds: sec,
+  //               millis: mill,
+  //               timeSpent: timeSpent,
+  //               overTime: "",
+  //               completed: false
+  //             });
+  //           });
     });
   }
 
